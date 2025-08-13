@@ -98,8 +98,8 @@ class CommandCenterAccess_MorphTunnel(MetroidPrime2Region):
                         condition_and([
                              state.has("Agon Wastes - Command Center | Gate Closed"),
                              condition_or([
-                                  state.has("Space Jump Boots", player),
                                   has_trick_enabled(state, player, "Agon Wastes - Command Center Access | Standable from Under Grates to Command Center Bottom"),
+                                  state.has("Space Jump Boots", player),
                              ]),
                         ]),
                      ]),

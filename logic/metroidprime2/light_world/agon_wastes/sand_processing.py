@@ -85,7 +85,6 @@ class SandProcessing_Halfpipe(MetroidPrime2Region):
                 ]),
                 condition_and([
                     has_trick_enabled(state, player, "Agon Wastes - Sand Process | SA over to Morph Tunnel Ledge"),
-                    state.has("Space Jump Boots", player),
                     can_use_screw_attack(state, player),
                 ]),
             ])
@@ -128,7 +127,6 @@ class SandProcessing_MorphTunnelLedge(MetroidPrime2Region):
                 ]),
                 condition_and([
                     has_trick_enabled(state, player, "Agon Wastes - Sand Processing | SA into Morph Tunnel"),
-                    state.has("Space Jump Boots", player),
                     can_use_screw_attack(state, player),
                 ])
             ])
@@ -155,7 +153,6 @@ class SandProcessing_BombSlot(MetroidPrime2Region):
                 ]),
                 condition_and([
                     has_trick_enabled(state, player, "Agon Wastes - Sand Processing | SA into Morph Tunnel"),
-                    state.has("Space Jump Boots", player),
                     can_use_screw_attack(state, player),
                 ]),
             ]),

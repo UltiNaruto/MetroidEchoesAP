@@ -202,7 +202,6 @@ class MainReactor_OnPhazonContainer(MetroidPrime2Region):
                 # TODO: Add logic for roll jump or scan dash over to corpse
                 condition_and([
                     has_trick_enabled(state, player, "Agon Wastes - Main Reactor | SA in Morph Exit by Item"),
-                    state.has("Space Jump Boots", player),
                     can_use_screw_attack(state, player),
                 ]),
             ])
