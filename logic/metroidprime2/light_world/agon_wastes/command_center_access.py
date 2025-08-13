@@ -62,7 +62,7 @@ class CommandCenterAccess_Bottom(MetroidPrime2Region):
                     code=None,
                     player=player,
                 ),
-                rule=lambda state, player: condition_or([
+                can_access=lambda state, player: condition_or([
                     can_lay_bomb_or_pb(state, player),
                     condition_and([
                         has_trick_enabled(state, player, "Agon Wastes - Command Center Access | Break Grates with Boost Ball"),
@@ -73,6 +73,7 @@ class CommandCenterAccess_Bottom(MetroidPrime2Region):
                         can_use_screw_attack(state, player),
                     ]),
                 ]),
+                parent=self,
             )
         ]
 
