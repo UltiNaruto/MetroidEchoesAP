@@ -32,11 +32,6 @@ class ControllerAccess_AgonTempleSide(MetroidPrime2Exit):
             ])
         ),
         MetroidPrime2Exit(
-            destination="Agon Wastes - Agon Energy Controller",
-            door=DoorCover.Any,
-            rule=lambda state, player: True,
-        ),
-        MetroidPrime2Exit(
             destination="Agon Wastes - Agon Temple (Contoller Access Side)",
             door=DoorCover.Any,
             rule=lambda state, player: True,
@@ -65,11 +60,6 @@ class ControllerAccess_AgonEnergyControllerSide(MetroidPrime2Region):
                     ]),
                 ]),
             ])
-        ),
-        MetroidPrime2Exit(
-            destination="Agon Wastes - Agon Temple (Controller Access Side)",
-            door=DoorCover.Any,
-            rule=lambda state, player: True,
         ),
         MetroidPrime2Exit(
             destination="Agon Wastes - Agon Energy Controller",

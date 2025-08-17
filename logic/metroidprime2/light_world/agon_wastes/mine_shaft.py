@@ -19,11 +19,6 @@ class MineShaft_Top(MetroidPrime2Region):
             rule=lambda state, player: state.has("Morph Ball", player),
         ),
         MetroidPrime2Exit(
-            destination="Agon Wastes - Mining Station B (Mine Shaft Side)",
-            door=DoorCover.Seeker,
-            rule=lambda state, player: True,
-        ),
-        MetroidPrime2Exit(
             destination="Agon Wastes - Mine Shaft (Item)",
             door=DoorCover.Opened,
             rule=lambda state, player: can_lay_bomb(state, player),
@@ -60,11 +55,6 @@ class MineShaft_Bottom(MetroidPrime2Region):
                     can_use_boost_ball(state, player),
                 ]),
             ])
-        ),
-        MetroidPrime2Exit(
-            destination="Agon Wastes - Agon Temple (Mine Shaft Side)",
-            door=DoorCover.Dark,
-            rule=lambda state, player: True,
         ),
         MetroidPrime2Exit(
             destination="Agon Wastes - Mining Station B (Mine Shaft Side)",

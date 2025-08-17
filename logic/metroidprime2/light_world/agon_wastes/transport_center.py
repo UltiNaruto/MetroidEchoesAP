@@ -51,7 +51,10 @@ class TransportCenter_Halfpipe(MetroidPrime2Region):
                     state.has("Space Jump Boots", player),
                     condition_or([
                         has_trick_enabled(state, player, "Agon Wastes - Transport Center | Halfpipe Standable up to Tranpsort to Torvus Bog"),
-                        has_trick_enabled(state, player, "Agon Wastes - Transport Center | Instant Morph to Instant Unmorph Jump to Transport to Torvus Bog"),
+                        condition_and([
+                            has_trick_enabled(state, player, "Agon Wastes - Transport Center | Instant Morph to Instant Unmorph Jump to Transport to Torvus Bog"),
+                            state.has("Morph Ball", player),
+                        ])
                     ])
                 ])
             ])
@@ -84,6 +87,7 @@ class TransportCenter_Halfpipe(MetroidPrime2Region):
                     can_lay_bomb(state, player),
                     condition_and([
                         has_trick_enabled(state, player, "Agon Wastes - Transport Center | Bomb Slot without Bombs"),
+                        state.has("Morph Ball", player),
                         condition_or([
                             can_use_darkburst(state, player),
                             can_use_sonic_boom(state, player),
@@ -113,11 +117,13 @@ class TransportCenter_TransportToTorvusBogLedge(MetroidPrime2Region):
             door=DoorCover.Opened,
             rule=lambda state, player: condition_and([
                 has_trick_enabled(state, player, "Agon Wastes - Transport Center | 2BSJ from Transport to Torvus Bog Ledge to Portal"),
-                state.has("Space Jump Boots", player),
+                state.has("Space Jump Boots", player),\
+                can_lay_bomb(state, player),
             ]),
         ),
         MetroidPrime2Exit(
             destination="Agon Wastes - Transport to Torvus Bog",
+            # TODO: add logic for seeker skip
             door=DoorCover.Seeker,
             rule=lambda state, player: True,
         )
@@ -134,7 +140,7 @@ class TransportCenter_BehindGate(MetroidPrime2Region):
         ),
         MetroidPrime2Exit(
             destination="Agon Wastes - Save Station A (Transport Center Side)",
-            door=DoorCover.Opened,
+            door=DoorCover.Any,
             rule=lambda state, player: True,
         )
     ]

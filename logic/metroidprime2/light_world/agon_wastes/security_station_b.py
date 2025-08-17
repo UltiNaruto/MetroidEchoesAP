@@ -1,9 +1,6 @@
-from BaseClasses import MultiWorld, ItemClassification
 from ... import (
     can_use_dark_beam
 )
-from .....Items import MetroidPrime2Item
-from .....Locations import MetroidPrime2Location
 from .....Enums import DoorCover
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
 from .....Utils import condition_and
@@ -13,7 +10,7 @@ class SecurityStationB_CommandCenterSide(MetroidPrime2Region):
     desc = "Command Center Side"
     exits_ = [
         MetroidPrime2Exit(
-            destination="Agon Wastes - Securtiy Station B (Main Reactor Side)",
+            destination="Agon Wastes - Security Station B (Main Reactor Side)",
             door=DoorCover.Opened,
             rule=lambda state, player: condition_and([
                 state.has("Agon Wastes - Security Station B | Cutscene Watched"),

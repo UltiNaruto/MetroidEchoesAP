@@ -6,7 +6,6 @@ from ... import (
     can_use_charged_dark_beam,
     can_use_charged_light_beam,
     can_use_charged_annihilator_beam,
-    can_use_screw_attack,
     has_oob_kit,
 )
 from .....Enums import DoorCover
@@ -30,7 +29,6 @@ class VentilationAreaB_BioenergyProductionSide(MetroidPrime2Region):
                 can_lay_bomb(state, player),
                 condition_and([
                     has_trick_enabled(state, player, "Agon Wastes - Ventilation Area B | Disable Lasers from Out of Bounds"),
-                    state.has("Space Jump Boots", player),
                     condition_or([
                         can_use_charged_power_beam(state, player),
                         can_use_charged_dark_beam(state, player),
@@ -38,14 +36,14 @@ class VentilationAreaB_BioenergyProductionSide(MetroidPrime2Region):
                         can_use_charged_annihilator_beam(state, player),
                         has_missile_count(state, player, 2),
                     ]),
-                    can_use_screw_attack(state, player),
+                    has_oob_kit(state, player),
                 ]),
                 condition_and([
                     has_trick_enabled(state, player, "Agon Wastes - Ventilation Area B | Out of Bounds to Save Station C Side"),
                     has_oob_kit(state, player),
-                ])
-            ])
-        )
+                ]),
+            ]),
+        ),
     ]
 
 class VentilationAreaB_SaveStationCSide(MetroidPrime2Region):

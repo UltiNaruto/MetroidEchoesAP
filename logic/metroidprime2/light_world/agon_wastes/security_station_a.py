@@ -19,7 +19,10 @@ class SecurityStationA_BiostorageStationSide(MetroidPrime2Region):
                 can_lay_bomb(state, player),
                 condition_and([
                     has_trick_enabled(state, player, "Agon Wastes - Security Station A | Bomb Slot without Bombs"),
-                    state.has("Space Jump Boots", player),
+                    state.has_all({
+                        "Morph Ball",
+                        "Space Jump Boots",
+                    }, player),
                     condition_or([
                         can_use_darkburst(state, player),
                         can_use_sonic_boom(state, player),
@@ -45,7 +48,10 @@ class SecurityStationA_BioenergyProductionSide(MetroidPrime2Region):
                 can_lay_bomb(state, player),
                 condition_and([
                     has_trick_enabled(state, player, "Agon Wastes - Security Station A | Bomb Slot without Bombs"),
-                    state.has("Space Jump Boots", player),
+                    state.has_all({
+                        "Morph Ball",
+                        "Space Jump Boots",
+                    }, player),
                     condition_or([
                         can_use_darkburst(state, player),
                         can_use_sonic_boom(state, player),

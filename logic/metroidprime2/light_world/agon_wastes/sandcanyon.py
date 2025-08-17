@@ -21,11 +21,6 @@ class Sandcanyon_AgonTempleSide(MetroidPrime2Region):
             rule=lambda state, player: state.has("Morph Ball", player),
         ),
         MetroidPrime2Exit(
-            destination="Agon Wastes - Ventilation Area A (Sandcanyon Side)",
-            door=DoorCover.Any,
-            rule=lambda state, player: True,
-        ),
-        MetroidPrime2Exit(
             destination="Agon Wastes - Sandcanyon (Platform)",
             door=DoorCover.Opened,
             rule=lambda state, player: can_use_screw_attack(state, player),
@@ -45,11 +40,6 @@ class Sandcanyon_VentilationAreaASide(MetroidPrime2Region):
             destination="Agon Wastes - Sandcanyon (Agon Temple Side)",
             door=DoorCover.Opened,
             rule=lambda state, player: state.has("Morph Ball", player),
-        ),
-        MetroidPrime2Exit(
-            destination="Agon Wastes - Agon Temple (Sandcanyon Side)",
-            door=DoorCover.Light,
-            rule=lambda state, player: True,
         ),
         MetroidPrime2Exit(
             destination="Agon Wastes - Sandcanyon (Platform)",

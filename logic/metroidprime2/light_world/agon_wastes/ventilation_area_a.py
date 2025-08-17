@@ -17,26 +17,6 @@ class VentilationAreaA_SandcanyonSide(MetroidPrime2Region):
             rule=lambda state, player: state.has("Morph Ball", player),
         ),
         MetroidPrime2Exit(
-            destination="Agon Wastes - Ventilation Area A (Main Reactor Side)",
-            door=DoorCover.Opened,
-            rule=lambda state, player: state.has("Morph Ball", player),
-        ),
-        MetroidPrime2Exit(
-            destination="Agon Wastes - Main Reactor (Ventilation Area A Side)",
-            door=DoorCover.Light,
-            rule=lambda state, player: True,
-        ),
-        MetroidPrime2Exit(
-            destination="Agon Wastes - Ventilation Area A (Transport to Sanctuary Fortress Side)",
-            door=DoorCover.Opened,
-            rule=lambda state, player: can_lay_bomb(state, player),
-        ),
-        MetroidPrime2Exit(
-            destination="Agon Wastes - Transport to Sanctuary Fortress",
-            door=DoorCover.PowerBomb,
-            rule=lambda state, player: True,
-        ),
-        MetroidPrime2Exit(
             destination="Agon Wastes - Sandcanyon (Ventilation Area A Side)",
             door=DoorCover.Any,
             rule=lambda state, player: True,
@@ -53,26 +33,6 @@ class VentilationAreaA_ReactorCoreSide(MetroidPrime2Region):
             rule=lambda state, player: state.has("Morph Ball", player),
         ),
         MetroidPrime2Exit(
-            destination="Agon Wastes - Ventilation Area A (Sandcanyon Side)",
-            door=DoorCover.Opened,
-            rule=lambda state, player: state.has("Morph Ball", player),
-        ),
-        MetroidPrime2Exit(
-            destination="Agon Wastes - Sandcanyon (Ventilation Area A Side)",
-            door=DoorCover.Any,
-            rule=lambda state, player: True,
-        ),
-        MetroidPrime2Exit(
-            destination="Agon Wastes - Ventilation Area A (Transport to Sanctuary Fortress Side)",
-            door=DoorCover.Opened,
-            rule=lambda state, player: can_lay_bomb(state, player),
-        ),
-        MetroidPrime2Exit(
-            destination="Agon Wastes - Transport to Sanctuary Fortress",
-            door=DoorCover.PowerBomb,
-            rule=lambda state, player: True,
-        ),
-        MetroidPrime2Exit(
             destination="Agon Wastes - Main Reactor (Ventilation Area A Side)",
             door=DoorCover.Light,
             rule=lambda state, player: True,
@@ -87,26 +47,6 @@ class VentilationAreaA_TransportToSanctuaryFortressSide(MetroidPrime2Region):
             destination="Agon Wastes - Ventilation Area A (Center)",
             door=DoorCover.Opened,
             rule=lambda state, player: state.has("Morph Ball", player),
-        ),
-        MetroidPrime2Exit(
-            destination="Agon Wastes - Ventilation Area A (Sandcanyon Side)",
-            door=DoorCover.Opened,
-            rule=lambda state, player: state.has("Morph Ball", player),
-        ),
-        MetroidPrime2Exit(
-            destination="Agon Wastes - Sandcanyon (Ventilation Area A Side)",
-            door=DoorCover.Any,
-            rule=lambda state, player: True,
-        ),
-        MetroidPrime2Exit(
-            destination="Agon Wastes - Ventilation Area A (Main Reactor Side)",
-            door=DoorCover.Opened,
-            rule=lambda state, player: state.has("Morph Ball", player),
-        ),
-        MetroidPrime2Exit(
-            destination="Agon Wastes - Main Reactor (Ventilation Area A Side)",
-            door=DoorCover.Light,
-            rule=lambda state, player: True,
         ),
         MetroidPrime2Exit(
             destination="Agon Wastes - Transport to Sanctuary Fortress",

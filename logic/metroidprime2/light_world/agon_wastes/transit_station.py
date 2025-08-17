@@ -1,6 +1,8 @@
 from ... import (
     has_trick_enabled,
-    can_lay_bomb_or_pb,
+    can_lay_bomb,
+    can_lay_pb,
+    has_pb_count,
     can_use_boost_ball,
     has_oob_kit
 )
@@ -16,17 +18,16 @@ class TransitStation_MiningStationBSide(MetroidPrime2Region):
             destination="Agon Wastes - Transit Station (Mining Plaza Side)",
             door=DoorCover.Opened,
             rule=lambda state, player: condition_or([
-                can_lay_bomb_or_pb(state, player),
+                can_lay_bomb(state, player),
+                condition_and([
+                    can_lay_pb(state, player),
+                    has_pb_count(state, player, 2),
+                ]),
                 condition_and([
                     has_trick_enabled(state, player, "Agon Wastes - Transit Station | Break Rocks with Boost Ball"),
                     can_use_boost_ball(state, player),
                 ])
             ])
-        ),
-        MetroidPrime2Exit(
-            destination="Agon Wastes - Mining Plaza (Portal Exit)",
-            door=DoorCover.Any,
-            rule=lambda state, player: True,
         ),
         MetroidPrime2Exit(
             destination="Agon Wastes - Mining Station B (Transit Station Side)",
@@ -53,5 +54,10 @@ class TransitStation_MiningPlazaSide(MetroidPrime2Region):
                     has_oob_kit(state, player)
                 ])
             ])
-        )
+        ),
+        MetroidPrime2Exit(
+            destination="Agon Wastes - Mining Plaza (Portal Exit)",
+            door=DoorCover.Any,
+            rule=lambda state, player: True,
+        ),
     ]

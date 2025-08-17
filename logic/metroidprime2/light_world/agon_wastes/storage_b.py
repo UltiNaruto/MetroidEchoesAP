@@ -7,7 +7,7 @@ class StorageB(MetroidPrime2Region):
     name = "Storage B"
     exits_ = [
         MetroidPrime2Exit(
-            destination="Agon Wastes - Biostorage Station (Storage B Side)",
+            destination="Agon Wastes - Biostorage Station (Top)",
             door=DoorCover.Dark,
             rule=lambda state, player: True,
         )

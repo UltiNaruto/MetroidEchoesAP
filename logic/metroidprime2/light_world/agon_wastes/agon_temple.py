@@ -21,19 +21,10 @@ class AgonTemple_TempleAccessSide(MetroidPrime2Exit):
     desc = "Temple Access Side"
     exits_ = [
         MetroidPrime2Exit(
-            destination="Agon Wastes - Agon Temple (Mine Shaft Side)",
+            destination="Agon Wastes - Agon Temple (Controller Access Side)",
             door=DoorCover.Opened,
+            # TODO: add logic for various bombless tricks
             rule=lambda state, player: can_lay_bomb(state, player),
-        ),
-        MetroidPrime2Exit(
-            destination="Agon Wastes - Mine Shaft (Top)",
-            door=DoorCover.Dark,
-            rule=lambda state, player: True,
-        ),
-        MetroidPrime2Exit(
-            destination="Agon Wastes - Agon Temple (Ventilation Area A)",
-            door=DoorCover.Opened,
-            rule=lambda state, player: True,
         ),
         MetroidPrime2Exit(
             destination="Agon Wastes - Sandcanyon (Agon Temple Side)",
@@ -52,56 +43,15 @@ class AgonTemple_TempleAccessSide(MetroidPrime2Exit):
         ),
     ]
 
-class AgonTemple_MineShaftSide(MetroidPrime2Region):
-    name = "Agon Temple"
-    desc = "Mine Shaft Side"
-    exits_ = [
-        MetroidPrime2Exit(
-           destination="Agon Wastes - Agon Temple (Temple Access Side)",
-           door=DoorCover.Opened,
-           # TODO: add standable to get over invisible wall.
-           rule=lambda state, player: can_lay_bomb(state, player), 
-        ),
-        MetroidPrime2Exit(
-            destination="Agon Wastes - Temple Access",
-            door=DoorCover.Any,
-            rule=lambda state, player: True,
-        ),
-        MetroidPrime2Exit(
-            destination="Agon Wastes - Agon Temple (Controller Access Side)",
-            door=DoorCover.Opened,
-            rule=lambda state, player: True,
-        ),
-        MetroidPrime2Exit(
-            destination="Agon Wastes - Controller Access",
-            door=DoorCover.Any,
-            rule=lambda state, player: True
-        ),
-        MetroidPrime2Exit(
-            destination="Agon Wastes - Mine Shaft (Top)",
-            door=DoorCover.Dark,
-            rule=lambda state, player: True,
-        ),
-    ]
-
 class AgonTemple_ControllerAccessSide(MetroidPrime2Exit):
     name = "Agon Temple"
     desc = "Controller Access Side"
     exits_ = [
         MetroidPrime2Exit(
-            destination="Agon Wastes - Agon Temple (Sandcanyon Side)",
+            destination="Agon Wastes - Agon Temple (Temple Access Side)",
             door=DoorCover.Opened,
+            # TODO: add logic for various bombless tricks
             rule=lambda state, player: can_lay_bomb(state, player),
-        ),
-        MetroidPrime2Exit(
-            destination="Agon Wastes - Sandcanyon (Agon Temple Side)",
-            door=DoorCover.Light,
-            rule=lambda state, player: True,
-        ),
-        MetroidPrime2Exit(
-            destination="Agon Wastes - Agon Temple (Mine Shaft Side)",
-            door=DoorCover.Opened,
-            rule=lambda state, player: True,
         ),
         MetroidPrime2Exit(
             destination="Agon Wastes - Mine Shaft (Top)",
@@ -114,41 +64,10 @@ class AgonTemple_ControllerAccessSide(MetroidPrime2Exit):
             rule=lambda state, player: True,
         ),
         MetroidPrime2Exit(
-            destination="Agon Wastes - Controller Access",
+            destination="Agon Wastes - Controller Access (Agon Temple Side)",
             door=DoorCover.Any,
             rule=lambda state, player: True
         )
-    ]
-
-class AgonTemple_SandcanyonSide(MetroidPrime2Region):
-    name = "Agon Temple"
-    desc = "Sandcanyon Side"
-    exits_ = [
-        MetroidPrime2Exit(
-            destination="Agon Wastes - Agon Temple (Temple Access Side)",
-            door=DoorCover.Opened,
-            rule=lambda state, player: can_lay_bomb(state, player),
-        ),
-        MetroidPrime2Exit(
-            destination="Agon Wastes - Temple Access",
-            door=DoorCover.Any,
-            rule=lambda state, player: True,
-        ),
-        MetroidPrime2Exit(
-            destination="Agon Wastes - Agon Temple (Controller Access Side)",
-            door=DoorCover.Opened,
-            rule=lambda state, player: True,
-        ),
-        MetroidPrime2Exit(
-            destination="Agon Wastes - Controller Access",
-            door=DoorCover.Any,
-            rule=lambda state, player: True,
-        ),
-        MetroidPrime2Exit(
-            destination="Agon Wastes - Sandcanyon (Agon Temple Side)",
-            door=DoorCover.Light,
-            rule=lambda state, player: True,
-        ),
     ]
 
 class AgonTemple_Center(MetroidPrime2Region):

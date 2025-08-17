@@ -15,9 +15,9 @@ from .....Enums import DoorCover
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
 from .....Utils import condition_and, condition_or
 
-class MainReactor_SecurityStationBSide(MetroidPrime2Region):
+class MainReactor_Portal(MetroidPrime2Region):
     name = "Main Reactor"
-    desc = "Security Station B Side"
+    desc = "Portal"
     exits_ = [
         MetroidPrime2Exit(
             destination="Agon Wastes - Main Reactor (Storage D Side)",
@@ -36,7 +36,7 @@ class MainReactor_SecurityStationBSide(MetroidPrime2Region):
             rule=lambda state, player: True,
         ),
         MetroidPrime2Exit(
-            destination="Agon Wastes - Security Station B (Main Reactor Side)",
+            destination="Agon Wastes - Portal (Main Reactor Side)",
             door=DoorCover.Dark,
             rule=lambda state, player: True,
         ),
@@ -68,10 +68,10 @@ class MainReactor_StorageDSide(MetroidPrime2Region):
             rule=lambda state, player: state.has("Agon Wastes - Main Reactor | DS1 Dead"),
         ),
         MetroidPrime2Exit(
-            destination="Agon Wastes - Main Reactor (Ventilation Area A Ledge)",
+            destination="Agon Wastes - Main Reactor (Ventilation Area A Side)",
             door=DoorCover.Opened,
             rule=lambda state, player: condition_and([
-                has_trick_enabled(state, player, "Agon Wastes - Main Reactor | 3BSJ to SA Recoil up to Ventilation Area A Ledge"),
+                has_trick_enabled(state, player, "Agon Wastes - Main Reactor | 3BSJ to SA Recoil up to Ventilation Area A Side"),
                 state.has("Space Jump Boots", player),
                 can_lay_bomb(state, player),
                 can_use_screw_attack(state, player),
@@ -89,7 +89,7 @@ class MainReactor_Center(MetroidPrime2Region):
             rule=lambda state, player: state.has("Agon Wastes - Main Reactor | DS1 Dead"),
         ),
         MetroidPrime2Exit(
-            destination="Agon Wastes - Main Reactor (Ventilation Area A Ledge)",
+            destination="Agon Wastes - Main Reactor (Ventilation Area A Side)",
             door=DoorCover.Opened,
             rule=lambda state, player: condition_and([
                 # TODO: add logic to make sure player can reload room
@@ -97,7 +97,7 @@ class MainReactor_Center(MetroidPrime2Region):
                 condition_or([
                     can_use_spider_ball(state, player),
                     condition_and([
-                        has_trick_enabled(state, player, "Agon Wastes - Main Reactor | 3BSJ to SA Recoil up to Ventilation Area A Ledge"),
+                        has_trick_enabled(state, player, "Agon Wastes - Main Reactor | 3BSJ to SA Recoil up to Ventilation Area A Side"),
                         state.has("Space Jump Boots", player),
                         can_lay_bomb(state, player),
                         can_use_screw_attack(state, player),
@@ -165,7 +165,7 @@ class MainReactor_Item(MetroidPrime2Region):
 
         self.locations = [
             MetroidPrime2Location(
-                name="Pickup (Amber Translator)",
+                name="Pickup (Missile Expansion)",
                 can_access=lambda state, player: condition_or([
                     can_lay_bomb_or_pb(state, player),
                     condition_and([
@@ -186,7 +186,7 @@ class MainReactor_OnPhazonContainer(MetroidPrime2Region):
     desc = "On Phazon Container"
     exits_ = [
         MetroidPrime2Exit(
-            destination="Agon Wastes - Main Reactor (Security Station B Side)",
+            destination="Agon Wastes - Main Reactor (Portal)",
             door=DoorCover.Opened,
             rule=lambda state, player: state.has("Space Jump Boots", player),
         ),

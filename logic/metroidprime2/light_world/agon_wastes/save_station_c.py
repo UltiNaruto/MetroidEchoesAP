@@ -10,7 +10,7 @@ class SaveStationC(MetroidPrime2Region):
             rule=lambda state, player: True,
         ),
         MetroidPrime2Exit(
-            destination="Agon Wastes - Sand Processing (Top)",
+            destination="Agon Wastes - Sand Processing (Save Station C Side)",
             door=DoorCover.Any,
             rule=lambda state, player: True,
         )

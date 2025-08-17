@@ -65,7 +65,6 @@ class PortalTerminal_Center(MetroidPrime2Region):
                     can_lay_bomb(state, player),
                     condition_and([
                         has_trick_enabled(state, player, "Agon Wastes - Portal Terminal | Activate Portal Without Bombs"),
-                        state.has("Space Jump Boots", player),
                         can_use_screw_attack(state, player),
                         condition_or([
                             can_use_darkburst(state, player),
@@ -74,7 +73,7 @@ class PortalTerminal_Center(MetroidPrime2Region):
                     ]),
                     condition_and([
                         has_trick_enabled(state, player, "Agon Wastes - Portal Terminal | Activate Portal Without Bombs NSJ"),
-                        can_use_screw_attack(state, player),
+                        can_use_screw_attack(state, player, z_axis=True),
                         condition_or([
                             can_use_darkburst(state, player),
                             can_use_sonic_boom(state, player),
