@@ -7,7 +7,7 @@ from ... import (
     can_use_power_beam,
     has_dark_suit,
     has_light_suit,
-    has_missile_count,
+    has_missile_count, can_activate_safe_zone,
 )
 from .....Enums import DoorCover
 from .....Locations import MetroidPrime2Location
@@ -36,13 +36,18 @@ class AccursedLake(MetroidPrime2Region):
                     can_use_annihilator_beam(state, player),
                     has_missile_count(state, player, 5),
                 ]),
+                # consider the amount of energy tank to return to safety
+                # assuming we get the item, starting from Plain of Dark Worship door
                 condition_or([
-                    # consider the amount of energy tank to return to safety
-                    # assuming we get the item, starting from Plain of Dark Worship door
-                    state.count("Energy Tank", player) >= 5,
                     condition_and([
-                        state.count("Energy Tank", player) >= 1,
-                        has_dark_suit(state, player),
+                        can_activate_safe_zone(state, player),
+                        condition_or([
+                            state.count("Energy Tank", player) >= 5,
+                            condition_and([
+                                state.count("Energy Tank", player) >= 1,
+                                has_dark_suit(state, player),
+                            ]),
+                        ]),
                     ]),
                     has_light_suit(state, player),
                 ]),

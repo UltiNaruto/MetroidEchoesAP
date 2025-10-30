@@ -28,9 +28,8 @@ class AbandonedBase(MetroidPrime2Region):
             rule=lambda state, player: condition_and([
                 has_trick_enabled(state, player, ""),
                 state.has("Space Jump Boots", player),
+                # consider the amount of energy tank to return to safety
                 condition_or([
-                    # consider the amount of energy tank to return to safety
-                    # assuming we get the item, starting from Base Access door
                     state.count("Energy Tank", player) >= 1,
                     has_dark_suit(state, player),
                     has_light_suit(state, player),

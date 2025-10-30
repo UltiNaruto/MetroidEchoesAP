@@ -4,6 +4,7 @@ from ... import (
     can_activate_light_portal,
     can_use_boost_ball,
     can_use_screw_attack,
+    can_use_seeker_launcher,
     has_missile_count,
 )
 from .....Enums import DoorCover
@@ -75,8 +76,7 @@ class IngWindchamber_Portal(MetroidPrime2Region):
                     state.can_reach(spot="Sky Temple Grounds - Ing Windchamber (West)", player=player),
                     state.can_reach(spot="Sky Temple Grounds - Ing Windchamber (North)", player=player),
                     can_use_boost_ball(state, player),
-                    has_missile_count(state, player, 5),
-                    state.has("Seeker Launcher", player),
+                    can_use_seeker_launcher(state, player),
                 ]),
                 parent=self,
             ),
@@ -120,8 +120,7 @@ class IngWindchamber_North(MetroidPrime2Region):
                     # aka South
                     state.can_reach(spot="Sky Temple Grounds - Ing Windchamber (Portal)", player=player),
                     can_use_boost_ball(state, player),
-                    has_missile_count(state, player, 5),
-                    state.has("Seeker Launcher", player),
+                    can_use_seeker_launcher(state, player),
                 ]),
                 parent=self,
             ),

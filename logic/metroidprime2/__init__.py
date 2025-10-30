@@ -2,7 +2,7 @@ from typing import cast
 
 from BaseClasses import CollectionState
 from ...Enums import DoorCover
-from ...Options import MetroidPrime2Options
+from ...Options import MetroidPrime2Options, FinalBoss
 from ...Utils import condition_and, condition_or
 
 
@@ -188,6 +188,7 @@ def can_use_sonic_boom(state: CollectionState, player: int) -> bool:
 def can_use_seeker_launcher(state: CollectionState, player: int) -> bool:
     return condition_and([
         state.has("Seeker Launcher", player),
+        # consider more missile to start the charging process of Seeker Launcher
         has_missile_count(state, player, 6),
     ])
 
@@ -382,12 +383,32 @@ def can_activate_light_beam_block(state: CollectionState, player: int) -> bool:
     return can_use_light_beam(state, player)
 
 
+def can_activate_safe_zone(state: CollectionState, player: int) -> bool:
+    return condition_or([
+        can_use_charged_annihilator_beam(state, player),
+        can_use_charged_light_beam(state, player),
+        can_use_power_beam(state, player),
+    ])
+
+
 def has_enough_sky_temple_keys(state: CollectionState, player: int) -> bool:
     options = cast(MetroidPrime2Options, state.multiworld.worlds[player].options)
     needed_sky_temple_keys_count: int = options.sky_temple_keys_count.value
     sky_temple_keys_count: int = sum([1 for i in range(9) if state.has(f'Sky Temple Key {i}', player)])
 
     return sky_temple_keys_count >= needed_sky_temple_keys_count
+
+
+def must_fight_emperor_ing(state: CollectionState, player: int) -> bool:
+    options = cast(MetroidPrime2Options, state.multiworld.worlds[player].options)
+
+    return options.final_bosses.value in [FinalBoss.option_emperor_ing_only, FinalBoss.option_all]
+
+
+def must_fight_dark_samus_3_4(state: CollectionState, player: int) -> bool:
+    options = cast(MetroidPrime2Options, state.multiworld.worlds[player].options)
+
+    return options.final_bosses.value in [FinalBoss.option_dark_samus_only, FinalBoss.option_all]
 
 
 def has_trick_enabled(state: CollectionState, player: int, trick_name: str) -> bool:

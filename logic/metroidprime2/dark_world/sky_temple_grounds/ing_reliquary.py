@@ -35,6 +35,7 @@ class IngReliquary(MetroidPrime2Region):
                     can_use_annihilator_beam(state, player),
                     has_missile_count(state, player, 5),
                 ]),
+                # TODO: add Dark Suit logic
                 has_light_suit(state, player),
             ]),
         ),
