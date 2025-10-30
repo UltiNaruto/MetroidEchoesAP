@@ -1,4 +1,5 @@
 from BaseClasses import ItemClassification, MultiWorld
+
 from ... import can_activate_dark_portal, can_lay_bomb, has_trick_enabled
 from .....Enums import DoorCover
 from .....Items import MetroidPrime2Item

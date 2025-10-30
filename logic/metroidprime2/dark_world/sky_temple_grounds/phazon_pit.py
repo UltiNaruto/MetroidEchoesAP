@@ -1,4 +1,4 @@
-from ... import can_use_screw_attack, has_dark_suit, has_light_suit, has_trick_enabled, can_lay_bomb
+from ... import can_lay_bomb, can_use_screw_attack, has_dark_suit, has_light_suit, has_trick_enabled
 from .....Enums import DoorCover
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
 from .....Utils import condition_and, condition_or

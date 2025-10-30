@@ -1,7 +1,7 @@
 from ... import can_activate_light_portal, can_lay_bomb, has_dark_suit, has_light_suit, has_trick_enabled
 from .....Enums import DoorCover
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
-from .....Utils import condition_or, condition_and
+from .....Utils import condition_and, condition_or
 
 
 class BaseAccess_Bottom(MetroidPrime2Region):

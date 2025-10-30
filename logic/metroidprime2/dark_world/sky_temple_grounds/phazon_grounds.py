@@ -1,4 +1,5 @@
 from BaseClasses import MultiWorld
+
 from ... import can_use_screw_attack, has_dark_suit, has_light_suit, has_trick_enabled
 from .....Enums import DoorCover
 from .....Locations import MetroidPrime2Location

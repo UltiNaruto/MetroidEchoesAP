@@ -1,4 +1,5 @@
 from BaseClasses import MultiWorld
+
 from ... import has_oob_kit, has_trick_enabled
 from .....Enums import DoorCover
 from .....Locations import MetroidPrime2Location

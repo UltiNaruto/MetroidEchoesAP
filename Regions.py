@@ -1,6 +1,6 @@
 from typing import Callable, Optional
 
-from BaseClasses import Region, CollectionState, MultiWorld
+from BaseClasses import CollectionState, Region, MultiWorld
 from .Enums import DoorCover
 
 

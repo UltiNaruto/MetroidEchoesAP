@@ -1,9 +1,10 @@
 from BaseClasses import MultiWorld
+
 from ... import has_dark_suit, has_light_suit, has_missile_count
 from .....Enums import DoorCover
 from .....Locations import MetroidPrime2Location
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
-from .....Utils import condition_or, condition_and
+from .....Utils import condition_and, condition_or
 
 
 class WarRitualGrounds_BaseAccessSide(MetroidPrime2Region):

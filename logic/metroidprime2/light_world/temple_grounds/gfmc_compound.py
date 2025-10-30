@@ -1,12 +1,13 @@
-from BaseClasses import MultiWorld, ItemClassification
+from BaseClasses import ItemClassification, MultiWorld
+
 from ... import (
     can_lay_bomb,
     can_lay_bomb_or_pb,
     can_use_annihilator_beam,
     can_use_boost_ball,
-    can_use_charged_power_beam,
     can_use_charged_dark_beam,
     can_use_charged_light_beam,
+    can_use_charged_power_beam,
     can_use_screw_attack,
     has_missile_count,
     has_trick_enabled,

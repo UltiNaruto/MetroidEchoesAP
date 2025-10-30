@@ -5,7 +5,7 @@ from .....Enums import DoorCover
 from .....Items import MetroidPrime2Item
 from .....Locations import MetroidPrime2Location
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
-from .....Utils import condition_or, condition_and
+from .....Utils import condition_and, condition_or
 
 
 class LandingSite_Bottom(MetroidPrime2Region):

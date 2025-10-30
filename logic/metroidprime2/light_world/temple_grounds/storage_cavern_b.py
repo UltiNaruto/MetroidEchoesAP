@@ -1,4 +1,5 @@
 from BaseClasses import MultiWorld
+
 from .....Enums import DoorCover
 from .....Locations import MetroidPrime2Location
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region

@@ -1,4 +1,4 @@
-from BaseClasses import MultiWorld, ItemClassification
+from BaseClasses import ItemClassification, MultiWorld
 
 from ... import (
     can_activate_light_portal,

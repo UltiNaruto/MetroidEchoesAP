@@ -1,10 +1,10 @@
 from BaseClasses import MultiWorld
+
 from ... import (
     can_use_annihilator_beam,
     can_use_dark_beam,
     can_use_light_beam,
     can_use_power_beam,
-    has_dark_suit,
     has_light_suit,
     has_missile_count,
 )

@@ -6,13 +6,14 @@ import pkgutil
 from pathlib import Path
 
 from BaseClasses import Entrance, Item, ItemClassification, Location, MultiWorld, Region, Tutorial
-from .Items import SKY_TEMPLE_KEYS, MetroidPrime2Item
+from .Items import MetroidPrime2Item, SKY_TEMPLE_KEYS
 from .Locations import MetroidPrime2Location
 from .Options import MetroidPrime2Options
 from .Regions import MetroidPrime2Region
 from .Utils import items_start_id, locations_start_id
 from .logic import regions_, set_rules, locations
 from ..AutoWorld import World, WebWorld
+
 
 logger = logging.getLogger("Metroid Prime 2 Echoes")
 

@@ -1,7 +1,7 @@
 from ... import can_activate_dark_portal, can_lay_bomb, has_trick_enabled
 from .....Enums import DoorCover
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
-from .....Utils import condition_or, condition_and
+from .....Utils import condition_and, condition_or
 
 
 class HallOfEyes_Bottom(MetroidPrime2Region):

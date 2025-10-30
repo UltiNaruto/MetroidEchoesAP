@@ -1,4 +1,5 @@
 from BaseClasses import ItemClassification, MultiWorld
+
 from ... import (
     can_lay_bomb,
     can_lay_bomb_or_pb,

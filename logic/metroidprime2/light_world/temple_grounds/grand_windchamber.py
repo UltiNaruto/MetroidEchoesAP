@@ -1,6 +1,6 @@
 from BaseClasses import MultiWorld
 
-from ... import can_activate_dark_portal, can_use_grapple_beam, can_use_screw_attack, has_trick_enabled, can_lay_bomb
+from ... import can_activate_dark_portal, can_lay_bomb, can_use_grapple_beam, can_use_screw_attack, has_trick_enabled
 from .....Enums import DoorCover
 from .....Locations import MetroidPrime2Location
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region

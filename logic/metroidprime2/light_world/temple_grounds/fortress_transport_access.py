@@ -1,4 +1,5 @@
 from BaseClasses import MultiWorld
+
 from ... import can_lay_bomb, can_use_boost_ball, has_light_suit, has_trick_enabled
 from .....Enums import DoorCover
 from .....Locations import MetroidPrime2Location

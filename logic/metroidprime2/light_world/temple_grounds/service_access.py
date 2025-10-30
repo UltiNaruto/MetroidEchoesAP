@@ -1,4 +1,4 @@
-from ... import can_use_boost_ball, can_lay_bomb
+from ... import can_lay_bomb, can_use_boost_ball
 from .....Enums import DoorCover
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
 from .....Utils import condition_and

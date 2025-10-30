@@ -1,4 +1,5 @@
 from BaseClasses import ItemClassification, MultiWorld
+
 from .....Enums import DoorCover
 from .....Items import MetroidPrime2Item
 from .....Locations import MetroidPrime2Location

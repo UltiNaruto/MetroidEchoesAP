@@ -1,4 +1,5 @@
 from BaseClasses import ItemClassification, MultiWorld
+
 from ... import (
     can_activate_light_portal,
     can_lay_bomb,
@@ -15,7 +16,7 @@ from .....Enums import DoorCover
 from .....Items import MetroidPrime2Item
 from .....Locations import MetroidPrime2Location
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
-from .....Utils import condition_or, condition_and
+from .....Utils import condition_and, condition_or
 
 
 class AbandonedBase(MetroidPrime2Region):

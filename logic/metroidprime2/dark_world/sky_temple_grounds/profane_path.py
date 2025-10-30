@@ -1,5 +1,6 @@
 from BaseClasses import ItemClassification, MultiWorld
-from ... import can_activate_light_portal, can_lay_bomb, has_trick_enabled, can_use_annihilator_beam
+
+from ... import can_activate_light_portal, can_lay_bomb, can_use_annihilator_beam, has_trick_enabled
 from .....Enums import DoorCover
 from .....Items import MetroidPrime2Item
 from .....Locations import MetroidPrime2Location

@@ -1,11 +1,11 @@
-from BaseClasses import MultiWorld, ItemClassification
+from BaseClasses import ItemClassification, MultiWorld
 
 from ... import can_activate_light_beam_block, can_lay_bomb, has_trick_enabled
 from ..... import MetroidPrime2Item
 from .....Enums import DoorCover
 from .....Locations import MetroidPrime2Location
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
-from .....Utils import condition_or, condition_and
+from .....Utils import condition_and, condition_or
 
 
 class PathOfEyes_Center(MetroidPrime2Region):

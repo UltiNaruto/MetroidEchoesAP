@@ -1,4 +1,5 @@
 from BaseClasses import MultiWorld
+
 from ... import (
     can_use_annihilator_beam,
     can_use_dark_beam,
