@@ -1,7 +1,7 @@
 .git*
 __pycache__
 build
-LICENSE.md
+LICENSE
 README.md
 requirements.txt
 Metroid Prime 2 Echoes.yaml

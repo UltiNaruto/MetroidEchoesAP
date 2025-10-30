@@ -122,9 +122,9 @@ function mk_apworld() {
 function cp_data() {
   local root="$1" destdir="$2"
   echo "=> Copying over the extra data"
-  cp --verbose ${root}/LICENSE ${destdir}
-  cp --verbose ${root}/README.md ${destdir}
-  cp --verbose "${root}/Metroid Prime 2 Echoes.yaml" ${destdir}
+  cp --verbose ${root}/../LICENSE ${destdir}
+  cp --verbose ${root}/../README.md ${destdir}
+  cp --verbose "${root}/../Metroid Prime 2 Echoes.yaml" ${destdir}
 }
 
 ##
@@ -167,7 +167,7 @@ function main() {
   *)
     local tag="${TAG:-$(date '+%Y-%m-%d_%H%M')}"
     local py_version="${PY_VERSION}"
-    local project="$(realpath ${CWD}/..)"
+    local project="$(realpath ${CWD}/../src)"
     local bundle="${bundle_base}-${tag}-${py_version}"
     local destdir="${target_path}/${bundle}"
     local local_install=false
@@ -187,9 +187,9 @@ function main() {
       echo "=> Local install, copying ${project}/lib to ${destdir}"
     else
       for platform in "${SUPPORTED_PLATFORMS[@]}"; do
-        local requirements_file="${project}/requirements.txt"
+        local requirements_file="${project}/../requirements.txt"
         if [ "${platform}" = "manylinux_2_28_x86_64" ]; then
-          requirements_file="${project}/requirements-linux.txt"
+          requirements_file="${project}/../requirements-linux.txt"
         fi
         get_deps "${platform}" ${requirements_file} "${destdir}/lib"
         # copy deps to project folder as well for local dev
