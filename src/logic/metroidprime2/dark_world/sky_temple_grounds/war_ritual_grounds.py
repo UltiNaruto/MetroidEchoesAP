@@ -17,7 +17,7 @@ class WarRitualGrounds_BaseAccessSide(MetroidPrime2Region):
             rule=lambda state, player: state.can_reach("Sky Temple Grounds - Base Access (Top)", player),
         ),
         MetroidPrime2Exit(
-            destination="Sky Temple Grounds - War Ritual Grounds (Center)",
+            destination="Sky Temple Grounds - War Ritual Grounds (Safe Zone)",
             door=DoorCover.Opened,
             rule=lambda state, player: condition_or([
                 state.count("Energy Tank", player) >= 2,
@@ -33,8 +33,8 @@ class WarRitualGrounds_Item(MetroidPrime2Region):
     desc = "Item"
     exits_ = [
         MetroidPrime2Exit(
-            destination="Sky Temple Grounds - War Ritual Grounds",
-            door=DoorCover.Any,
+            destination="Sky Temple Grounds - War Ritual Grounds (Safe Zone)",
+            door=DoorCover.Opened,
             rule=lambda state, player: condition_or([
                 has_dark_suit(state, player),
                 has_light_suit(state, player),

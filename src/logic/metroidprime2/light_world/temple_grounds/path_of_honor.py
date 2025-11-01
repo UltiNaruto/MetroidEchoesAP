@@ -3,7 +3,7 @@ from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
 
 
 class PathOfHonor_Bottom(MetroidPrime2Region):
-    name = "Path Of Honor"
+    name = "Path of Honor"
     desc = "Bottom"
     exits_ = [
         MetroidPrime2Exit(
@@ -20,7 +20,7 @@ class PathOfHonor_Bottom(MetroidPrime2Region):
 
 
 class PathOfHonor_Top(MetroidPrime2Region):
-    name = "Path Of Honor"
+    name = "Path of Honor"
     desc = "Top"
     exits_ = [
         MetroidPrime2Exit(
