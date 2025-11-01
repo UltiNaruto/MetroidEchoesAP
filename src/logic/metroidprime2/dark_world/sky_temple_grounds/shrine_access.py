@@ -35,7 +35,7 @@ class ShrineAccess_SafeZone(MetroidPrime2Region):
             ]),
         ),
         MetroidPrime2Exit(
-            destination="Sky Temple Grounds - Defiled Shrine (Top)",
+            destination="Sky Temple Grounds - Defiled Shrine",
             door=DoorCover.SuperMissile,
             rule=lambda state, player: condition_or([
                 state.count("Energy Tank", player) >= 1,
