@@ -10,20 +10,32 @@ from ...generic.Rules import set_rule
 
 
 def regions_(player: int, multiworld: MultiWorld) -> dict[str, dict[str, MetroidPrime2Region]]:
-    from .metroidprime2.dark_world import sky_temple_grounds_rooms
-    from .metroidprime2.light_world import temple_grounds_rooms
+    from .metroidprime2.dark_world import (
+        dark_agon_wastes_rooms,
+        dark_torvus_bog_rooms,
+        ing_hive_rooms,
+        sky_temple_rooms,
+        sky_temple_grounds_rooms,
+    )
+    from .metroidprime2.light_world import (
+        agon_wastes_rooms,
+        great_temple_rooms,
+        sanctuary_fortress_rooms,
+        temple_grounds_rooms,
+        torvus_bog_rooms,
+    )
 
     return {
         'Temple Grounds': {room.name: room for room in temple_grounds_rooms(player, multiworld)},
         'Sky Temple Grounds': {room.name: room for room in sky_temple_grounds_rooms(player, multiworld)},
-        #'Great Temple': {room.name: room for room in great_temple_rooms(player, multiworld)},
-        #'Sky Temple': {room.name: room for room in sky_temple_rooms(player, multiworld)},
-        #'Agon Wastes': {room.name: room for room in agon_wastes_rooms(player, multiworld)},
-        #'Dark Agon Wastes': {room.name: room for room in dark_agon_wastes_rooms(player, multiworld)},
-        #'Torvus Bog': {room.name: room for room in torvus_bog_rooms(player, multiworld)},
-        #'Dark Torvus Bog': {room.name: room for room in dark_torvus_bog_rooms(player, multiworld)},
-        #'Sanctuary Fortress': {room.name: room for room in sanctuary_fortress_rooms(player, multiworld)},
-        #'Ing Hive': {room.name: room for room in ing_hive_rooms(player, multiworld)},
+        'Great Temple': {room.name: room for room in great_temple_rooms(player, multiworld)},
+        'Sky Temple': {room.name: room for room in sky_temple_rooms(player, multiworld)},
+        'Agon Wastes': {room.name: room for room in agon_wastes_rooms(player, multiworld)},
+        'Dark Agon Wastes': {room.name: room for room in dark_agon_wastes_rooms(player, multiworld)},
+        'Torvus Bog': {room.name: room for room in torvus_bog_rooms(player, multiworld)},
+        'Dark Torvus Bog': {room.name: room for room in dark_torvus_bog_rooms(player, multiworld)},
+        'Sanctuary Fortress': {room.name: room for room in sanctuary_fortress_rooms(player, multiworld)},
+        'Ing Hive': {room.name: room for room in ing_hive_rooms(player, multiworld)},
     }
 
 def locations() -> list[str]:
