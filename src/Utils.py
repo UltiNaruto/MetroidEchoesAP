@@ -1,4 +1,40 @@
+import glob
+import importlib
+import inspect
+import os
 import re
+from itertools import chain
+from pathlib import Path
+from types import ModuleType
+from typing import Iterable, TypeVar
+
+
+T = TypeVar('T')
+
+
+def get_all_classes_from_modules(mods: list[ModuleType], type: T) -> list[T]:
+    def get_all_classes_from_module(mod: ModuleType) -> Iterable[T]:
+        ret = []
+        for name, obj in inspect.getmembers(mod, inspect.isclass):
+            if obj.__module__ == mod.__name__:
+                ret.append(obj)
+        return ret
+
+    return list(chain.from_iterable([
+        get_all_classes_from_module(mod)
+        for mod in mods
+    ]))
+
+
+def import_all_submodules(mod: ModuleType) -> list[ModuleType]:
+    path = Path(os.path.dirname(mod.__file__))
+    submodules = glob.glob(str(path) + "/*.py")
+    submodules = [os.path.basename(f)[:-3] for f in submodules if
+                  os.path.isfile(f) and not os.path.basename(f).startswith('__')]  # exclude __init__.py
+    ret = []
+    for submodule in submodules:
+        ret.append(importlib.import_module(f'.{submodule}', mod.__name__))
+    return ret
 
 
 def condition_or(conditions: list[bool]) -> bool:
