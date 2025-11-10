@@ -61,6 +61,15 @@ class Tricks(OptionList):
     """Which tricks are enabled?"""
     display_name = "Tricks"
     options = [
+        "Great Temple - Temple Sanctuary | Defeat Alpha Splinter with Bombs",
+        "Great Temple - Temple Sanctuary | Defeat Alpha Splinter with Boost Ball",
+        "Great Temple - Temple Sanctuary | Defeat Alpha Splinter with Power Bomb",
+        "Great Temple - Temple Sanctuary | Defeat Alpha Splinter with Screw Attack and SJ",
+        "Great Temple - Transport A Access | Break Block with Boost Ball",
+        "Great Temple - Transport A Access | Break Block with Screw Attack",
+        "Great Temple - Transport A Access | Break Block with Super Missile",
+        "Great Temple - Transport B Access | Item with Slope Jump and SJ",
+        "Great Temple - Transport B Access | Item with Wall Boost",
         "Sky Temple Grounds - Abandoned Base | Slope Jump to Portal",
         "Sky Temple Grounds - Base Access | DBJ to Top",
         "Sky Temple Grounds - Defiled Shrine | DBJ to Top",
