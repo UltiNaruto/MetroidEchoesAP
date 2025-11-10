@@ -115,7 +115,7 @@ class TempleAssemblySite_Center(MetroidPrime2Region):
                 parent=self,
             ),
             MetroidPrime2Location(
-                name="Container Moved",
+                name="Container Shot Down",
                 locked_item=MetroidPrime2Item(
                     name="Temple Grounds - Temple Assembly Site | Container Shot Down",
                     classification=ItemClassification.progression,
