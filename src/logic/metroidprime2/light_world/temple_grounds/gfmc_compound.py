@@ -156,29 +156,6 @@ class GFMCCompound_Cutscene(MetroidPrime2Region):
         ]
 
 
-class GFMCCompound_MapStation(MetroidPrime2Region):
-    name = "GFMC Compound"
-    desc = "Map Station"
-    exits_ = [
-        MetroidPrime2Exit(
-            destination="Temple Grounds - GFMC Compound (Center)",
-            door=DoorCover.Opened,
-            rule=lambda state, player: True,
-        ),
-    ]
-
-    def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
-        super().__init__(region_name, player, multiworld)
-
-        self.locations = [
-            MetroidPrime2Location(
-                name="Pickup (Missile Expansion)",
-                can_access=lambda state, player: state.has("Dark Agon Wastes - Judgement Pit | Jump Guardian Dead", player),
-                parent=self,
-            ),
-        ]
-
-
 class GFMCCompound_SacredBridgeLedge(MetroidPrime2Region):
     name = "GFMC Compound"
     desc = "Sacred Bridge Ledge"
