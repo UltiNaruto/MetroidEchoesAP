@@ -91,17 +91,6 @@ class WarRitualGrounds_SafeZone(MetroidPrime2Region):
         ),
     ]
 
-    def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
-        super().__init__(region_name, player, multiworld)
-
-        self.locations = [
-            MetroidPrime2Location(
-                name="Pickup (Missile Expansion)",
-                can_access=lambda state, player: True,
-                parent=self,
-            ),
-        ]
-
 
 class WarRitualGrounds_ShrineAccessSide(MetroidPrime2Region):
     name = "War Ritual Grounds"
