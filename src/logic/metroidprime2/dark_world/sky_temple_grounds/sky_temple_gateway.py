@@ -9,8 +9,9 @@ from ... import (
     has_dark_suit,
     has_enough_sky_temple_keys,
     has_light_suit,
+    has_trick_enabled,
     must_fight_dark_samus_3_4,
-    must_fight_emperor_ing, has_trick_enabled,
+    must_fight_emperor_ing,
 )
 from .....Enums import DoorCover
 from .....Items import MetroidPrime2Item
@@ -47,7 +48,7 @@ class SkyTempleGateway(MetroidPrime2Region):
             ]),
         ),
         MetroidPrime2Exit(
-            destination="E|Sky Temple - Sky Temple Energy Controller",
+            destination="Sky Temple - Sky Temple Energy Controller",
             door=DoorCover.Opened,
             rule=lambda state, player: condition_and([
                 must_fight_emperor_ing(state, player),
