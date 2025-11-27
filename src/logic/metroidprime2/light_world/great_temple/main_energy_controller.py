@@ -21,7 +21,7 @@ class MainEnergyController(MetroidPrime2Region):
         ),
         MetroidPrime2Exit(
             door=DoorCover.Opened,
-            destination="Great Temple - Main Energy Controller (Item)",
+            destination="Great Temple - Main Energy Controller (Light Suit Item)",
             rule=lambda state, player: state.has("Sanctuary Fortress - Sanctuary Energy Controller | Energy Returned"),
         ),
         MetroidPrime2Exit(

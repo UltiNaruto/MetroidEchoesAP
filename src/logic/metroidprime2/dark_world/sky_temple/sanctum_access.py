@@ -14,7 +14,7 @@ class SanctumAccess_Bottom(MetroidPrime2Region):
     desc = "Bottom"
     exits_ = [
         MetroidPrime2Exit(
-            destination="Sky Temple Grounds - Sanctum Access (Top)",
+            destination="Sky Temple - Sanctum Access (Top)",
             door=DoorCover.Opened,
             rule=lambda state, player: condition_and([
                 has_light_suit(state, player),
@@ -28,7 +28,7 @@ class SanctumAccess_Bottom(MetroidPrime2Region):
             ]),
         ),
         MetroidPrime2Exit(
-            destination="Sky Temple Grounds - Sky Temple Energy Controller",
+            destination="Sky Temple - Sky Temple Energy Controller",
             door=DoorCover.Any,
             rule=lambda state, player: has_light_suit(state, player),
         ),
@@ -40,12 +40,12 @@ class SanctumAccess_Top(MetroidPrime2Region):
     desc = "Top"
     exits_ = [
         MetroidPrime2Exit(
-            destination="Sky Temple Grounds - Sanctum Access (Bottom)",
+            destination="Sky Temple - Sanctum Access (Bottom)",
             door=DoorCover.Opened,
             rule=lambda state, player: has_light_suit(state, player),
         ),
         MetroidPrime2Exit(
-            destination="Sky Temple Grounds - Sanctum",
+            destination="Sky Temple - Sanctum",
             door=DoorCover.Any,
             rule=lambda state, player: has_light_suit(state, player),
         ),
