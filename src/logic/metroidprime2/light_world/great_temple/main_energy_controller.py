@@ -2,7 +2,6 @@ from BaseClasses import ItemClassification, MultiWorld
 
 from .....Enums import DoorCover
 from .....Items import MetroidPrime2Item
-from .....Locations import MetroidPrime2Location
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
 
 
@@ -39,13 +38,10 @@ class MainEnergyController(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Pickup (Violet Translator)",
-                can_access=lambda state, player: True,
-                parent=self,
-            ),
-        ]
+        self.add_location(
+            name="Pickup (Violet Translator)",
+            can_access=lambda state, player: True,
+        )
 
 
 class MainEnergyController_LightSuitItem(MetroidPrime2Region):
@@ -62,21 +58,17 @@ class MainEnergyController_LightSuitItem(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Can Pick Up Light Suit Item",
-                locked_item=MetroidPrime2Item(
-                    name="Great Temple - Main Energy Controller | Can Pick Up Light Suit Item",
-                    classification=ItemClassification.progression,
-                    code=None,
-                    player=player,
-                ),
-                can_access=lambda state, player: True,
-                parent=self,
+        self.add_location(
+            name="Can Pick Up Light Suit Item",
+            locked_item=MetroidPrime2Item(
+                name="Great Temple - Main Energy Controller | Can Pick Up Light Suit Item",
+                classification=ItemClassification.progression,
+                code=None,
+                player=player,
             ),
-            MetroidPrime2Location(
-                name="Pickup (Light Suit)",
-                can_access=lambda state, player: state.has("Great Temple - Main Energy Controller | Can Pick Up Light Suit Item"),
-                parent=self,
-            ),
-        ]
+            can_access=lambda state, player: True,
+        )
+        self.add_location(
+            name="Pickup (Light Suit)",
+            can_access=lambda state, player: state.has("Great Temple - Main Energy Controller | Can Pick Up Light Suit Item", player),
+        )

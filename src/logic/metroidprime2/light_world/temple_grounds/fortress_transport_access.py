@@ -2,7 +2,6 @@ from BaseClasses import MultiWorld
 
 from ... import can_lay_bomb, can_use_boost_ball, has_light_suit, has_trick_enabled
 from .....Enums import DoorCover
-from .....Locations import MetroidPrime2Location
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
 from .....Utils import condition_and, condition_or
 
@@ -21,13 +20,10 @@ class FortressTransportAccess_Top(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Pickup (Energy Tank)",
-                can_access=lambda state, player: True,
-                parent=self,
-            ),
-        ]
+        self.add_location(
+            name="Pickup (Energy Tank)",
+            can_access=lambda state, player: True,
+        )
 
 
 class FortressTransportAccess_Bottom(MetroidPrime2Region):

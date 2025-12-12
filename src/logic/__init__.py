@@ -3,12 +3,13 @@ import sys
 
 from typing import cast
 
-from BaseClasses import CollectionState, Entrance, MultiWorld
 from .metroidprime2 import can_destroy_cover
 from ..Enums import DoorCover
 from ..Options import MetroidPrime2Options
 from ..Regions import MetroidPrime2Exit, MetroidPrime2Region
 from ..Utils import condition_and, get_all_classes_from_parent_module, snake_case_to_title_case
+
+from BaseClasses import CollectionState, Entrance, MultiWorld
 from ...generic.Rules import set_rule
 
 

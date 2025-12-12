@@ -2,7 +2,6 @@ from BaseClasses import MultiWorld
 
 from ... import can_lay_bomb, can_lay_bomb_or_pb, can_use_screw_attack, has_trick_enabled
 from .....Enums import DoorCover
-from .....Locations import MetroidPrime2Location
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
 from .....Utils import condition_and, condition_or
 
@@ -65,13 +64,10 @@ class CommunicationArea_ItemLedge(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Pickup (Missile Expansion)",
-                can_access=lambda state, player: can_lay_bomb_or_pb(state, player),
-                parent=self,
-            ),
-        ]
+        self.add_location(
+            name="Pickup (Missile Expansion)",
+            can_access=lambda state, player: can_lay_bomb_or_pb(state, player),
+        )
 
 
 class CommunicationArea_Top(MetroidPrime2Region):

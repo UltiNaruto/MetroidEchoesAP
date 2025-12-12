@@ -3,7 +3,6 @@ from BaseClasses import ItemClassification, MultiWorld
 from ... import can_activate_dark_portal, can_lay_bomb, has_trick_enabled
 from .....Enums import DoorCover
 from .....Items import MetroidPrime2Item
-from .....Locations import MetroidPrime2Location
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
 from .....Utils import condition_and, condition_or
 
@@ -81,16 +80,13 @@ class SacredPath_SacredBridgeSide(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Cannon Activated",
-                locked_item=MetroidPrime2Item(
-                    name="Temple Grounds - Sacred Path | Cannon Activated",
-                    classification=ItemClassification.progression,
-                    code=None,
-                    player=player,
-                ),
-                can_access=lambda state, player: True,
-                parent=self,
+        self.add_location(
+            name="Cannon Activated",
+            locked_item=MetroidPrime2Item(
+                name="Temple Grounds - Sacred Path | Cannon Activated",
+                classification=ItemClassification.progression,
+                code=None,
+                player=player,
             ),
-        ]
+            can_access=lambda state, player: True,
+        )

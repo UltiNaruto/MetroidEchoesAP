@@ -2,7 +2,6 @@ from BaseClasses import MultiWorld
 
 from ... import can_use_seeker_launcher, has_dark_suit, has_light_suit
 from .....Enums import DoorCover
-from .....Locations import MetroidPrime2Location
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
 from .....Utils import condition_and, condition_or
 
@@ -45,13 +44,10 @@ class WarRitualGrounds_Item(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Pickup (Missile Expansion)",
-                can_access=lambda state, player: True,
-                parent=self,
-            ),
-        ]
+        self.add_location(
+            name="Pickup (Missile Expansion)",
+            can_access=lambda state, player: True,
+        )
 
 
 class WarRitualGrounds_SafeZone(MetroidPrime2Region):

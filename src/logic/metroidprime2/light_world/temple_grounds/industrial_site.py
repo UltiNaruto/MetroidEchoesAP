@@ -14,7 +14,6 @@ from ... import (
 )
 from .....Enums import DoorCover
 from .....Items import MetroidPrime2Item
-from .....Locations import MetroidPrime2Location
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
 from .....Utils import condition_and, condition_or
 
@@ -103,19 +102,16 @@ class IndustrialSite_Center(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Container Moved",
-                locked_item=MetroidPrime2Item(
-                    name="Temple Grounds - Industrial Site | Container Moved",
-                    classification=ItemClassification.progression,
-                    code=None,
-                    player=player,
-                ),
-                can_access=lambda state, player: state.has("Scan Visor", player),
-                parent=self,
+        self.add_location(
+            name="Container Moved",
+            locked_item=MetroidPrime2Item(
+                name="Temple Grounds - Industrial Site | Container Moved",
+                classification=ItemClassification.progression,
+                code=None,
+                player=player,
             ),
-        ]
+            can_access=lambda state, player: state.has("Scan Visor", player),
+        )
 
 
 class IndustrialSite_CollapsedTunnelLedge(MetroidPrime2Region):
@@ -164,28 +160,25 @@ class IndustrialSite_FrontOfTranslatorGate(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Lowered Bridge",
-                locked_item=MetroidPrime2Item(
-                    name="Temple Grounds - Industrial Site | Lowered Bridge",
-                    classification=ItemClassification.progression,
-                    code=None,
-                    player=player,
-                ),
-                can_access=lambda state, player: condition_and([
-                    state.has("Scan Visor", player),
-                    condition_or([
-                        can_use_power_beam(state, player),
-                        can_use_charged_dark_beam(state, player),
-                        can_use_charged_light_beam(state, player),
-                        can_use_charged_annihilator_beam(state, player),
-                        has_missile_count(state, player, 2),
-                    ]),
-                ]),
-                parent=self,
+        self.add_location(
+            name="Lowered Bridge",
+            locked_item=MetroidPrime2Item(
+                name="Temple Grounds - Industrial Site | Lowered Bridge",
+                classification=ItemClassification.progression,
+                code=None,
+                player=player,
             ),
-        ]
+            can_access=lambda state, player: condition_and([
+                state.has("Scan Visor", player),
+                condition_or([
+                    can_use_power_beam(state, player),
+                    can_use_charged_dark_beam(state, player),
+                    can_use_charged_light_beam(state, player),
+                    can_use_charged_annihilator_beam(state, player),
+                    has_missile_count(state, player, 2),
+                ]),
+            ]),
+        )
 
 
 class IndustrialSite_Gate(MetroidPrime2Region):
@@ -202,19 +195,16 @@ class IndustrialSite_Gate(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Gate Opened",
-                locked_item=MetroidPrime2Item(
-                    name="Temple Grounds - Industrial Site | Gate Opened",
-                    classification=ItemClassification.progression,
-                    code=None,
-                    player=player,
-                ),
-                can_access=lambda state, player: True,
-                parent=self,
+        self.add_location(
+            name="Gate Opened",
+            locked_item=MetroidPrime2Item(
+                name="Temple Grounds - Industrial Site | Gate Opened",
+                classification=ItemClassification.progression,
+                code=None,
+                player=player,
             ),
-        ]
+            can_access=lambda state, player: True,
+        )
 
 
 class IndustrialSite_HiveTransportAreaSide(MetroidPrime2Region):

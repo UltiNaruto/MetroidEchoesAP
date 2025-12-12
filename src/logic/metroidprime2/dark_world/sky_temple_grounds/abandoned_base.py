@@ -14,7 +14,6 @@ from ... import (
 )
 from .....Enums import DoorCover
 from .....Items import MetroidPrime2Item
-from .....Locations import MetroidPrime2Location
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
 from .....Utils import condition_and, condition_or
 
@@ -26,7 +25,7 @@ class AbandonedBase(MetroidPrime2Region):
             destination="Sky Temple Grounds - Abandoned Base (Portal)",
             door=DoorCover.Opened,
             rule=lambda state, player: condition_and([
-                has_trick_enabled(state, player, ""),
+                has_trick_enabled(state, player, "Sky Temple Grounds - Abandoned Base | Slope Jump to Portal"),
                 state.has("Space Jump Boots", player),
                 # consider the amount of energy tank to return to safety
                 condition_or([
@@ -83,19 +82,16 @@ class AbandonedBase_Platform(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Bomb Puzzle Solved",
-                locked_item=MetroidPrime2Item(
-                    name="Sky Temple Grounds - Abandoned Base | Bomb Puzzle Solved",
-                    classification=ItemClassification.progression,
-                    code=None,
-                    player=player,
-                ),
-                can_access=lambda state, player: can_lay_bomb(state, player),
-                parent=self,
+        self.add_location(
+            name="Bomb Puzzle Solved",
+            locked_item=MetroidPrime2Item(
+                name="Sky Temple Grounds - Abandoned Base | Bomb Puzzle Solved",
+                classification=ItemClassification.progression,
+                code=None,
+                player=player,
             ),
-        ]
+            can_access=lambda state, player: can_lay_bomb(state, player),
+        )
 
 
 class AbandonedBase_Portal(MetroidPrime2Region):

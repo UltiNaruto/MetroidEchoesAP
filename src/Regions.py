@@ -1,7 +1,12 @@
-from typing import Callable, Optional
+from typing import Callable, Optional, TYPE_CHECKING
+
+from .Enums import DoorCover
+from .Locations import MetroidPrime2Location
 
 from BaseClasses import CollectionState, Region, MultiWorld
-from .Enums import DoorCover
+
+if TYPE_CHECKING:
+    from .Items import MetroidPrime2Item
 
 
 class MetroidPrime2Exit:
@@ -24,3 +29,13 @@ class MetroidPrime2Region(Region):
             super().__init__(f"{region_name} - {self.name} ({self.desc})", player, multiworld)
         else:
             super().__init__(f"{region_name} - {self.name}", player, multiworld)
+
+    def add_location(self, name: str, can_access: Callable[[CollectionState, int], bool], locked_item: Optional[MetroidPrime2Item]=None):
+        self.locations += [
+            MetroidPrime2Location(
+                name,
+                can_access,
+                self,
+                locked_item,
+            ),
+        ]

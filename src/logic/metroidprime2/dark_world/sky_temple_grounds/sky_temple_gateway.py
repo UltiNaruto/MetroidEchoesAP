@@ -15,7 +15,6 @@ from ... import (
 )
 from .....Enums import DoorCover
 from .....Items import MetroidPrime2Item
-from .....Locations import MetroidPrime2Location
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
 from .....Utils import condition_and, condition_or
 
@@ -76,19 +75,16 @@ class SkyTempleGateway_Credits(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Victory",
-                locked_item=MetroidPrime2Item(
-                    name="Sky Temple Grounds - Sky Temple Gateway | Victory",
-                    classification=ItemClassification.progression,
-                    code=None,
-                    player=player,
-                ),
-                can_access=lambda state, player: True,
-                parent=self,
+        self.add_location(
+            name="Victory",
+            locked_item=MetroidPrime2Item(
+                name="Sky Temple Grounds - Sky Temple Gateway | Victory",
+                classification=ItemClassification.progression,
+                code=None,
+                player=player,
             ),
-        ]
+            can_access=lambda state, player: True,
+        )
 
 
 class SkyTempleGateway_DarkSamusFight(MetroidPrime2Region):
