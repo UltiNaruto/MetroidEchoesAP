@@ -35,13 +35,13 @@ class PlainOfDarkWorship(MetroidPrime2Region):
             rule=lambda state, player: can_activate_light_portal(state, player),
         ),
         MetroidPrime2Exit(
-            destination="Sky Temple Grounds - Plains of Dark Worship (Item)",
+            destination="Sky Temple Grounds - Plain of Dark Worship (Item)",
             door=DoorCover.Opened,
             rule=lambda state, player: condition_or([
                 has_dark_suit(state, player),
                 has_light_suit(state, player),
                 condition_and([
-                    has_trick_enabled(state, player, "Sky Temple Grounds - Plains of Dark Worship | Suitless SA to Item"),
+                    has_trick_enabled(state, player, "Sky Temple Grounds - Plain of Dark Worship | Suitless SA to Item"),
                     # consider both going to and coming back from
                     state.count("Energy Tank", player) >= 6,
                     can_use_screw_attack(state, player),
@@ -62,7 +62,7 @@ class PlainOfDarkWorship_Item(MetroidPrime2Region):
                 has_dark_suit(state, player),
                 has_light_suit(state, player),
                 condition_and([
-                    has_trick_enabled(state, player, "Sky Temple Grounds - Plains of Dark Worship | Suitless SA to Item"),
+                    has_trick_enabled(state, player, "Sky Temple Grounds - Plain of Dark Worship | Suitless SA to Item"),
                     # consider both going to and coming back from
                     state.count("Energy Tank", player) >= 6,
                     can_use_screw_attack(state, player),

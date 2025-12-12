@@ -22,7 +22,7 @@ class Sanctum(MetroidPrime2Region):
     name = "Sanctum"
     exits_ = [
         MetroidPrime2Exit(
-            destination="Sky Temple Grounds - Sanctum (Emperor Ing 1)",
+            destination="Sky Temple - Sanctum (Emperor Ing 1)",
             door=DoorCover.Opened,
             rule=lambda state, player: condition_and([
                 has_light_suit(state, player),
@@ -37,7 +37,7 @@ class Sanctum_EmperorIng1(MetroidPrime2Region):
     desc = "Emperor Ing 1"
     exits_ = [
         MetroidPrime2Exit(
-            destination="Sky Temple Grounds - Sanctum (Emperor Ing 2)",
+            destination="Sky Temple - Sanctum (Emperor Ing 2)",
             door=DoorCover.Opened,
             rule=lambda state, player: state.has("Sky Temple - Sanctum | Emperor Ing 1 Defeated", player),
         ),
@@ -69,7 +69,7 @@ class Sanctum_EmperorIng2(MetroidPrime2Region):
     desc = "Emperor Ing 2"
     exits_ = [
         MetroidPrime2Exit(
-            destination="Sky Temple Grounds - Sanctum (Emperor Ing 3)",
+            destination="Sky Temple - Sanctum (Emperor Ing 3)",
             door=DoorCover.Opened,
             rule=lambda state, player: state.has("Sky Temple - Sanctum | Emperor Ing 2 Defeated", player),
         ),
@@ -99,7 +99,7 @@ class Sanctum_EmperorIng3(MetroidPrime2Region):
     desc = "Emperor Ing 3"
     exits_ = [
         MetroidPrime2Exit(
-            destination="Sky Temple Grounds - Sanctum (Escape)",
+            destination="Sky Temple - Sanctum (Escape)",
             door=DoorCover.Opened,
             rule=lambda state, player: state.has("Sky Temple - Sanctum | Emperor Ing 3 Defeated", player),
         ),
@@ -139,7 +139,7 @@ class Sanctum_Escape(MetroidPrime2Region):
     desc = "Escape"
     exits_ = [
         MetroidPrime2Exit(
-            destination="Sky Temple Grounds - Sanctum Access (Top)",
+            destination="Sky Temple - Sanctum Access (Top)",
             door=DoorCover.Any,
             rule=lambda state, player: state.has("Sky Temple - Sanctum | Escape Started", player),
         ),

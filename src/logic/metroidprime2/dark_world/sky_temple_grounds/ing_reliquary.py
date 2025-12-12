@@ -17,7 +17,7 @@ class IngReliquary(MetroidPrime2Region):
     name = "Ing Reliquary"
     exits_ = [
         MetroidPrime2Exit(
-            destination="Sky Temple Grounds - Ing Reliquary",
+            destination="Sky Temple Grounds - Ing Reliquary (Ing Cache)",
             door=DoorCover.Any,
             rule=lambda state, player: condition_and([
                 # requires dark visor to be able to shoot the ing cache

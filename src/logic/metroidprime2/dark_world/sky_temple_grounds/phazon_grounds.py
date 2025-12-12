@@ -15,7 +15,7 @@ class PhazonGrounds(MetroidPrime2Region):
     name = "Phazon Grounds"
     exits_ = [
         MetroidPrime2Exit(
-            destination="Sky Temple Grounds - Phazon Pit (Item)",
+            destination="Sky Temple Grounds - Phazon Grounds (Item)",
             door=DoorCover.Opened,
             rule=lambda state, player: condition_and([
                 condition_or([

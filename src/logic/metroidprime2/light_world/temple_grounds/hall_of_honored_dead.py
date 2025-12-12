@@ -16,7 +16,7 @@ class HallOfHonoredDead(MetroidPrime2Region):
     name = "Hall of Honored Dead"
     exits_ = [
         MetroidPrime2Exit(
-            destination="Temple Grounds - Hall of Honored Dead (Path Of Honor Side)",
+            destination="Temple Grounds - Hall of Honored Dead (Path of Honor Side)",
             door=DoorCover.Opened,
             rule=lambda state, player: condition_or([
                 condition_and([
@@ -59,7 +59,7 @@ class HallOfHonoredDead(MetroidPrime2Region):
 
 class HallOfHonoredDead_PathOfHonorSide(MetroidPrime2Region):
     name = "Hall of Honored Dead"
-    desc = "Path Of Honor Side"
+    desc = "Path of Honor Side"
     exits_ = [
         MetroidPrime2Exit(
             destination="Temple Grounds - Hall of Honored Dead",

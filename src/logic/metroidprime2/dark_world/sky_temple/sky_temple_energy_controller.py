@@ -13,7 +13,7 @@ class SkyTempleEnergyController(MetroidPrime2Region):
     name = "Sky Temple Energy Controller"
     exits_ = [
         MetroidPrime2Exit(
-            destination="Sky Temple Grounds - Sanctum Access (Bottom)",
+            destination="Sky Temple - Sanctum Access (Bottom)",
             door=DoorCover.Any,
             rule=lambda state, player: has_light_suit(state, player),
         ),
