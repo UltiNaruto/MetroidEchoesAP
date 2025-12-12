@@ -30,7 +30,7 @@ class MetroidPrime2Region(Region):
         else:
             super().__init__(f"{region_name} - {self.name}", player, multiworld)
 
-    def add_location(self, name: str, can_access: Callable[[CollectionState, int], bool], locked_item: Optional[MetroidPrime2Item]=None):
+    def add_location(self, name: str, can_access: Callable[[CollectionState, int], bool], locked_item: Optional["MetroidPrime2Item"]=None):
         self.locations += [
             MetroidPrime2Location(
                 name,
