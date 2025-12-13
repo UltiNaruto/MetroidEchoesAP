@@ -3,7 +3,7 @@ An Archipelago implementation of Metroid Prime 2 - Echoes multiworld randomizer 
 
 ## Setup
 
-To get started or for troubleshooting, see [the Setup Guide](./data/setup_en.md).
+To get started or for troubleshooting, see [the Setup Guide](./src/data/setup_en.md).
 
 ## Info
 ### What is randomized in this game?
