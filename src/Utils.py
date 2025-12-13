@@ -79,7 +79,7 @@ def locations_start_id() -> int:
 
 
 def strip_description_from_region_name(region_name: str):
-    tmp = region_name.split(" - ")
+    tmp = region_name.split(" - ", 1)
     if len(tmp) != 2:
         raise Exception(f"Are you stripping description from a region name? (region_name: {region_name})")
 

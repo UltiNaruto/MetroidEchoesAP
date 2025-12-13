@@ -24,13 +24,13 @@ def regions_(player: int, multiworld: MultiWorld) -> dict[str, dict[str, Metroid
 
     # list all region names
     ret = {
-        r.name.split(' - ')[0]: {}
+        r.name.split(' - ', 1)[0]: {}
         for r in _all_regions
     }
 
     # list all room names and store region in returned dictionary
     for r in _all_regions:
-        tmp = r.name.split(' - ')
+        tmp = r.name.split(' - ', 1)
         ret[tmp[0]][tmp[1]] = r
 
     return ret
