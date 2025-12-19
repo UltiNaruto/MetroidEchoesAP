@@ -8,7 +8,6 @@ from ... import (
     has_trick_enabled,
 )
 from .....Enums import DoorCover
-from .....Locations import MetroidPrime2Location
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
 from .....Utils import condition_and, condition_or
 
@@ -44,27 +43,24 @@ class TransportAAccess_SaveStation(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Pickup (Missile Expansion)",
-                can_access=lambda state, player: condition_or([
-                    can_lay_bomb_or_pb(state, player),
-                    condition_and([
-                        has_trick_enabled(state, player, "Great Temple - Transport A Access | Break Block with Boost Ball"),
-                        can_use_boost_ball(state, player),
-                    ]),
-                    condition_and([
-                        has_trick_enabled(state, player, "Great Temple - Transport A Access | Break Block with Screw Attack"),
-                        can_use_screw_attack(state, player),
-                    ]),
-                    condition_and([
-                        has_trick_enabled(state, player, "Great Temple - Transport A Access | Break Block with Super Missile"),
-                        can_use_super_missile(state, player),
-                    ]),
+        self.add_location(
+            name="Pickup (Missile Expansion)",
+            can_access=lambda state, player: condition_or([
+                can_lay_bomb_or_pb(state, player),
+                condition_and([
+                    has_trick_enabled(state, player, "Great Temple - Transport A Access | Break Block with Boost Ball"),
+                    can_use_boost_ball(state, player),
                 ]),
-                parent=self,
-            ),
-        ]
+                condition_and([
+                    has_trick_enabled(state, player, "Great Temple - Transport A Access | Break Block with Screw Attack"),
+                    can_use_screw_attack(state, player),
+                ]),
+                condition_and([
+                    has_trick_enabled(state, player, "Great Temple - Transport A Access | Break Block with Super Missile"),
+                    can_use_super_missile(state, player),
+                ]),
+            ]),
+        )
 
 
 class TransportAAccess_TempleSanctuarySide(MetroidPrime2Region):

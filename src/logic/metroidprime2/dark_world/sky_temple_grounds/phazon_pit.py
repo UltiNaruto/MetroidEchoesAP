@@ -9,12 +9,12 @@ class PhazonPit_PhazonGroundsSide(MetroidPrime2Region):
     desc = "Phazon Grounds Side"
     exits_ = [
         MetroidPrime2Exit(
-            destination="Sky Temple Grounds - Profane Path (Phazon Pit Side)",
+            destination="Sky Temple Grounds - Phazon Grounds",
             door=DoorCover.Any,
             rule=lambda state, player: True,
         ),
         MetroidPrime2Exit(
-            destination="Sky Temple Grounds - Phazon Pit (Sacred Path Side)",
+            destination="Sky Temple Grounds - Phazon Pit (Profane Path Side)",
             door=DoorCover.Opened,
             rule=lambda state, player: condition_and([
                 condition_or([

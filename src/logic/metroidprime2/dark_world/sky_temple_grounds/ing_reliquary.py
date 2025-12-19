@@ -9,7 +9,6 @@ from ... import (
     has_missile_count,
 )
 from .....Enums import DoorCover
-from .....Locations import MetroidPrime2Location
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
 from .....Utils import condition_and, condition_or
 
@@ -18,7 +17,7 @@ class IngReliquary(MetroidPrime2Region):
     name = "Ing Reliquary"
     exits_ = [
         MetroidPrime2Exit(
-            destination="Sky Temple Grounds - Ing Reliquary",
+            destination="Sky Temple Grounds - Ing Reliquary (Ing Cache)",
             door=DoorCover.Any,
             rule=lambda state, player: condition_and([
                 # requires dark visor to be able to shoot the ing cache
@@ -61,10 +60,7 @@ class IngReliquary_IngCache(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Pickup (Sky Temple Key 7)",
-                can_access=lambda state, player: True,
-                parent=self,
-            ),
-        ]
+        self.add_location(
+            name="Pickup (Sky Temple Key 7)",
+            can_access=lambda state, player: True,
+        )

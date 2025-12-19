@@ -2,7 +2,6 @@ from BaseClasses import ItemClassification, MultiWorld
 
 from .....Enums import DoorCover
 from .....Items import MetroidPrime2Item
-from .....Locations import MetroidPrime2Location
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
 
 
@@ -28,19 +27,16 @@ class TransportToAgonWastes(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Webbing Destroyed",
-                locked_item=MetroidPrime2Item(
-                    name="Temple Grounds - Transport to Agon Wastes | Webbing Destroyed",
-                    classification=ItemClassification.progression,
-                    code=None,
-                    player=player,
-                ),
-                can_access=lambda state, player: True,
-                parent=self,
+        self.add_location(
+            name="Webbing Destroyed",
+            locked_item=MetroidPrime2Item(
+                name="Temple Grounds - Transport to Agon Wastes | Webbing Destroyed",
+                classification=ItemClassification.progression,
+                code=None,
+                player=player,
             ),
-        ]
+            can_access=lambda state, player: True,
+        )
 
 
 class TransportToAgonWastes_Item(MetroidPrime2Region):
@@ -57,10 +53,7 @@ class TransportToAgonWastes_Item(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Pickup (Missile Expansion)",
-                can_access=lambda state, player: True,
-                parent=self,
-            ),
-        ]
+        self.add_location(
+            name="Pickup (Missile Expansion)",
+            can_access=lambda state, player: True,
+        )

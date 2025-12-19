@@ -82,6 +82,9 @@ class MetroidPrime2World(World):
             case "templegrounds landingsite":
                 self.start_location = "Temple Grounds - Landing Site (Bottom)"
 
+        if "Sky Temple - Sanctum | Emperor Ing 3 with SA" in self.options.tricks.value:
+            logger.warning('Warning: Sky Temple - Sanctum | Emperor Ing 3 with SA trick is not available in Wii version!')
+
     def create_items(self) -> None:
         # Initializing item pool as vanilla
         itempool = []

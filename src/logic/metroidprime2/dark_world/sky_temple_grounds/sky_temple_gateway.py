@@ -15,7 +15,6 @@ from ... import (
 )
 from .....Enums import DoorCover
 from .....Items import MetroidPrime2Item
-from .....Locations import MetroidPrime2Location
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
 from .....Utils import condition_and, condition_or
 
@@ -76,19 +75,16 @@ class SkyTempleGateway_Credits(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Victory",
-                locked_item=MetroidPrime2Item(
-                    name="Sky Temple Grounds - Sky Temple Gateway | Victory",
-                    classification=ItemClassification.progression,
-                    code=None,
-                    player=player,
-                ),
-                can_access=lambda state, player: True,
-                parent=self,
+        self.add_location(
+            name="Victory",
+            locked_item=MetroidPrime2Item(
+                name="Sky Temple Grounds - Sky Temple Gateway | Victory",
+                classification=ItemClassification.progression,
+                code=None,
+                player=player,
             ),
-        ]
+            can_access=lambda state, player: True,
+        )
 
 
 class SkyTempleGateway_DarkSamusFight(MetroidPrime2Region):
@@ -105,32 +101,29 @@ class SkyTempleGateway_DarkSamusFight(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Dark Samus 3/4 Defeated",
-                locked_item=MetroidPrime2Item(
-                    name="Sky Temple Grounds - Sky Temple Gateway | Dark Samus 3/4 Defeated",
-                    classification=ItemClassification.progression,
-                    code=None,
-                    player=player,
-                ),
-                can_access=lambda state, player: condition_and([
-                    condition_or([
-                        can_use_charged_power_beam(state, player),
-                        can_use_charged_dark_beam(state, player),
-                        can_use_charged_light_beam(state, player),
-                        can_use_charged_annihilator_beam(state, player),
-                    ]),
-                    condition_or([
-                        state.has("Echo Visor", player),
-                        has_trick_enabled(state, player, "Sky Temple Grounds - Sky Temple Gateway | Dark Samus Fight without Echo Visor"),
-                    ]),
-                    # TODO: add no light suit logic
-                    has_light_suit(state, player),
-                ]),
-                parent=self,
+        self.add_location(
+            name="Dark Samus 3/4 Defeated",
+            locked_item=MetroidPrime2Item(
+                name="Sky Temple Grounds - Sky Temple Gateway | Dark Samus 3/4 Defeated",
+                classification=ItemClassification.progression,
+                code=None,
+                player=player,
             ),
-        ]
+            can_access=lambda state, player: condition_and([
+                condition_or([
+                    can_use_charged_power_beam(state, player),
+                    can_use_charged_dark_beam(state, player),
+                    can_use_charged_light_beam(state, player),
+                    can_use_charged_annihilator_beam(state, player),
+                ]),
+                condition_or([
+                    state.has("Echo Visor", player),
+                    has_trick_enabled(state, player, "Sky Temple Grounds - Sky Temple Gateway | Dark Samus Fight without Echo Visor"),
+                ]),
+                # TODO: add no light suit logic
+                has_light_suit(state, player),
+            ]),
+        )
 
 
 class SkyTempleGateway_GatewayAccessSide(MetroidPrime2Region):

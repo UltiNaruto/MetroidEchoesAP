@@ -6,7 +6,6 @@ from ... import (
     has_trick_enabled,
 )
 from .....Enums import DoorCover
-from .....Locations import MetroidPrime2Location
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
 from .....Utils import condition_and, condition_or
 
@@ -29,20 +28,17 @@ class TransportBAccess(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Pickup (Missile Expansion)",
-                can_access=lambda state, player: condition_or([
-                    can_lay_bomb(state, player),
-                    condition_and([
-                        has_trick_enabled(state, player, "Great Temple - Transport B Access | Item with Slope Jump and SJ"),
-                        state.has("Space Jump Boots", player),
-                    ]),
-                    condition_and([
-                        has_trick_enabled(state, player, "Great Temple - Transport B Access | Item with Wall Boost"),
-                        can_use_boost_ball(state, player),
-                    ]),
+        self.add_location(
+            name="Pickup (Missile Expansion)",
+            can_access=lambda state, player: condition_or([
+                can_lay_bomb(state, player),
+                condition_and([
+                    has_trick_enabled(state, player, "Great Temple - Transport B Access | Item with Slope Jump and SJ"),
+                    state.has("Space Jump Boots", player),
                 ]),
-                parent=self,
-            ),
-        ]
+                condition_and([
+                    has_trick_enabled(state, player, "Great Temple - Transport B Access | Item with Wall Boost"),
+                    can_use_boost_ball(state, player),
+                ]),
+            ]),
+        )

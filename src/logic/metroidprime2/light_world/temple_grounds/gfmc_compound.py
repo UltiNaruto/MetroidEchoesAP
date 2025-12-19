@@ -14,7 +14,6 @@ from ... import (
 )
 from .....Enums import DoorCover
 from .....Items import MetroidPrime2Item
-from .....Locations import MetroidPrime2Location
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
 from .....Utils import condition_and, condition_or
 
@@ -33,13 +32,10 @@ class GFMCCompound_AboveShip(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Pickup (Missile Expansion)",
-                can_access=lambda state, player: state.has("Dark Agon Wastes - Judgement Pit | Jump Guardian Dead", player),
-                parent=self,
-            ),
-        ]
+        self.add_location(
+            name="Pickup (Missile Expansion)",
+            can_access=lambda state, player: state.has("Dark Agon Wastes - Judgement Pit | Jump Guardian Dead", player),
+        )
 
 
 class GFMCCompound_BehindTranslatorGate(MetroidPrime2Region):
@@ -98,33 +94,29 @@ class GFMCCompound_Center(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Cannon Activated",
-                locked_item=MetroidPrime2Item(
-                    name="Temple Grounds - GFMC Compound | Cannon Activated",
-                    classification=ItemClassification.progression,
-                    code=None,
-                    player=player,
-                ),
-                can_access=lambda state, player: state.has("Scan Visor", player),
-                parent=self,
+        self.add_location(
+            name="Cannon Activated",
+            locked_item=MetroidPrime2Item(
+                name="Temple Grounds - GFMC Compound | Cannon Activated",
+                classification=ItemClassification.progression,
+                code=None,
+                player=player,
             ),
-            MetroidPrime2Location(
-                name="Pickup (Missile Launcher)",
-                can_access=lambda state, player: condition_or([
-                    can_lay_bomb_or_pb(state, player),
-                    can_use_annihilator_beam(state, player),
-                    can_use_boost_ball(state, player),
-                    can_use_charged_power_beam(state, player),
-                    can_use_charged_dark_beam(state, player),
-                    can_use_charged_light_beam(state, player),
-                    can_use_screw_attack(state, player),
-                    has_missile_count(state, player, 1),
-                ]),
-                parent=self,
-            ),
-        ]
+            can_access=lambda state, player: state.has("Scan Visor", player),
+        )
+        self.add_location(
+            name="Pickup (Missile Launcher)",
+            can_access=lambda state, player: condition_or([
+                can_lay_bomb_or_pb(state, player),
+                can_use_annihilator_beam(state, player),
+                can_use_boost_ball(state, player),
+                can_use_charged_power_beam(state, player),
+                can_use_charged_dark_beam(state, player),
+                can_use_charged_light_beam(state, player),
+                can_use_screw_attack(state, player),
+                has_missile_count(state, player, 1),
+            ]),
+        )
 
 
 class GFMCCompound_Cutscene(MetroidPrime2Region):
@@ -141,19 +133,16 @@ class GFMCCompound_Cutscene(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Cutscene Watched",
-                locked_item=MetroidPrime2Item(
-                    name="Temple Grounds - GFMC Compound | Cutscene Watched",
-                    classification=ItemClassification.progression,
-                    code=None,
-                    player=player,
-                ),
-                can_access=lambda state, player: True,
-                parent=self,
+        self.add_location(
+            name="Cutscene Watched",
+            locked_item=MetroidPrime2Item(
+                name="Temple Grounds - GFMC Compound | Cutscene Watched",
+                classification=ItemClassification.progression,
+                code=None,
+                player=player,
             ),
-        ]
+            can_access=lambda state, player: True,
+        )
 
 
 class GFMCCompound_SacredBridgeLedge(MetroidPrime2Region):
@@ -214,19 +203,16 @@ class GFMCCompound_TrooperSecurityStationSide(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Cutscene Watched (From Trooper Security Station Side)",
-                locked_item=MetroidPrime2Item(
-                    name="Temple Grounds - GFMC Compound | Cutscene Watched",
-                    classification=ItemClassification.progression,
-                    code=None,
-                    player=player,
-                ),
-                can_access=lambda state, player: True,
-                parent=self,
+        self.add_location(
+            name="Cutscene Watched (From Trooper Security Station Side)",
+            locked_item=MetroidPrime2Item(
+                name="Temple Grounds - GFMC Compound | Cutscene Watched",
+                classification=ItemClassification.progression,
+                code=None,
+                player=player,
             ),
-        ]
+            can_access=lambda state, player: True,
+        )
 
 
 class GFMCCompound_WindchamberTunnelLedge(MetroidPrime2Region):

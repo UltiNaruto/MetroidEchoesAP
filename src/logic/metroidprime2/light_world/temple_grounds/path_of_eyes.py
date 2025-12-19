@@ -3,7 +3,6 @@ from BaseClasses import ItemClassification, MultiWorld
 from ... import can_activate_light_beam_block, can_lay_bomb, has_trick_enabled
 from ..... import MetroidPrime2Item
 from .....Enums import DoorCover
-from .....Locations import MetroidPrime2Location
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
 from .....Utils import condition_and, condition_or
 
@@ -57,30 +56,26 @@ class PathOfEyes_Center(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Light Beam Block 2",
-                locked_item=MetroidPrime2Item(
-                    name="Temple Grounds - Path of Eyes | Light Beam Block 2 Opened",
-                    classification=ItemClassification.progression,
-                    code=None,
-                    player=player,
-                ),
-                can_access=lambda state, player: can_activate_light_beam_block(state, player),
-                parent=self,
+        self.add_location(
+            name="Light Beam Block 2",
+            locked_item=MetroidPrime2Item(
+                name="Temple Grounds - Path of Eyes | Light Beam Block 2 Opened",
+                classification=ItemClassification.progression,
+                code=None,
+                player=player,
             ),
-            MetroidPrime2Location(
-                name="Light Beam Block To Windchamber Gateway",
-                locked_item=MetroidPrime2Item(
-                    name="Temple Grounds - Path of Eyes | Light Beam Block To Windchamber Gateway Opened",
-                    classification=ItemClassification.progression,
-                    code=None,
-                    player=player,
-                ),
-                can_access=lambda state, player: can_activate_light_beam_block(state, player),
-                parent=self,
+            can_access=lambda state, player: can_activate_light_beam_block(state, player),
+        )
+        self.add_location(
+            name="Light Beam Block To Windchamber Gateway",
+            locked_item=MetroidPrime2Item(
+                name="Temple Grounds - Path of Eyes | Light Beam Block To Windchamber Gateway Opened",
+                classification=ItemClassification.progression,
+                code=None,
+                player=player,
             ),
-        ]
+            can_access=lambda state, player: can_activate_light_beam_block(state, player),
+        )
 
 
 class PathOfEyes_HallOfEyesSide(MetroidPrime2Region):
@@ -121,19 +116,16 @@ class PathOfEyes_HallOfEyesSide(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Light Beam Block 1",
-                locked_item=MetroidPrime2Item(
-                    name="Temple Grounds - Path of Eyes | Light Beam Block 1 Opened",
-                    classification=ItemClassification.progression,
-                    code=None,
-                    player=player,
-                ),
-                can_access=lambda state, player: can_activate_light_beam_block(state, player),
-                parent=self,
+        self.add_location(
+            name="Light Beam Block 1",
+            locked_item=MetroidPrime2Item(
+                name="Temple Grounds - Path of Eyes | Light Beam Block 1 Opened",
+                classification=ItemClassification.progression,
+                code=None,
+                player=player,
             ),
-        ]
+            can_access=lambda state, player: can_activate_light_beam_block(state, player),
+        )
 
 
 class PathOfEyes_TorvusTransportAccessSide(MetroidPrime2Region):
@@ -180,19 +172,16 @@ class PathOfEyes_TranslatorGate(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Light Beam Block Shortcut",
-                locked_item=MetroidPrime2Item(
-                    name="Temple Grounds - Path of Eyes | Light Beam Block Shortcut Opened",
-                    classification=ItemClassification.progression,
-                    code=None,
-                    player=player,
-                ),
-                can_access=lambda state, player: can_activate_light_beam_block(state, player),
-                parent=self,
+        self.add_location(
+            name="Light Beam Block Shortcut",
+            locked_item=MetroidPrime2Item(
+                name="Temple Grounds - Path of Eyes | Light Beam Block Shortcut Opened",
+                classification=ItemClassification.progression,
+                code=None,
+                player=player,
             ),
-        ]
+            can_access=lambda state, player: can_activate_light_beam_block(state, player),
+        )
 
 
 class PathOfEyes_UTurn(MetroidPrime2Region):
@@ -252,19 +241,16 @@ class PathOfEyes_Waterway(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Light Beam Block 3",
-                locked_item=MetroidPrime2Item(
-                    name="Temple Grounds - Path of Eyes | Light Beam Block 3 Opened",
-                    classification=ItemClassification.progression,
-                    code=None,
-                    player=player,
-                ),
-                can_access=lambda state, player: can_activate_light_beam_block(state, player),
-                parent=self,
+        self.add_location(
+            name="Light Beam Block 3",
+            locked_item=MetroidPrime2Item(
+                name="Temple Grounds - Path of Eyes | Light Beam Block 3 Opened",
+                classification=ItemClassification.progression,
+                code=None,
+                player=player,
             ),
-        ]
+            can_access=lambda state, player: can_activate_light_beam_block(state, player),
+        )
 
 
 class PathOfEyes_WindchamberGatewaySide(MetroidPrime2Region):

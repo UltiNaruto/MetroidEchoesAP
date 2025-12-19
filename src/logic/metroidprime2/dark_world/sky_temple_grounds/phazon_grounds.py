@@ -1,8 +1,12 @@
 from BaseClasses import MultiWorld
 
-from ... import can_use_screw_attack, has_dark_suit, has_light_suit, has_trick_enabled
+from ... import (
+    can_use_screw_attack,
+    has_dark_suit,
+    has_light_suit,
+    has_trick_enabled,
+)
 from .....Enums import DoorCover
-from .....Locations import MetroidPrime2Location
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
 from .....Utils import condition_and, condition_or
 
@@ -11,7 +15,7 @@ class PhazonGrounds(MetroidPrime2Region):
     name = "Phazon Grounds"
     exits_ = [
         MetroidPrime2Exit(
-            destination="Sky Temple Grounds - Phazon Pit (Item)",
+            destination="Sky Temple Grounds - Phazon Grounds (Item)",
             door=DoorCover.Opened,
             rule=lambda state, player: condition_and([
                 condition_or([
@@ -76,10 +80,7 @@ class PhazonGrounds_Item(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Pickup (Missile Expansion)",
-                can_access=lambda state, player: True,
-                parent=self,
-            ),
-        ]
+        self.add_location(
+            name="Pickup (Missile Expansion)",
+            can_access=lambda state, player: True,
+        )

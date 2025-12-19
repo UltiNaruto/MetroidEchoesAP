@@ -12,7 +12,6 @@ from ... import (
 )
 from .....Enums import DoorCover
 from .....Items import MetroidPrime2Item
-from .....Locations import MetroidPrime2Location
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
 from .....Utils import condition_and, condition_or
 
@@ -102,38 +101,34 @@ class TempleAssemblySite_Center(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Container Moved",
-                locked_item=MetroidPrime2Item(
-                    name="Temple Grounds - Temple Assembly Site | Container Moved",
-                    classification=ItemClassification.progression,
-                    code=None,
-                    player=player,
-                ),
-                can_access=lambda state, player: state.has("Scan Visor", player),
-                parent=self,
+        self.add_location(
+            name="Container Moved",
+            locked_item=MetroidPrime2Item(
+                name="Temple Grounds - Temple Assembly Site | Container Moved",
+                classification=ItemClassification.progression,
+                code=None,
+                player=player,
             ),
-            MetroidPrime2Location(
-                name="Container Shot Down",
-                locked_item=MetroidPrime2Item(
-                    name="Temple Grounds - Temple Assembly Site | Container Shot Down",
-                    classification=ItemClassification.progression,
-                    code=None,
-                    player=player,
-                ),
-                can_access=lambda state, player: condition_and([
-                    state.has("Temple Grounds - Temple Assembly Site | Container Moved", player),
-                    condition_or([
-                        can_use_power_beam(state, player),
-                        can_use_dark_beam(state, player),
-                        can_use_light_beam(state, player),
-                        can_use_annihilator_beam(state, player),
-                    ]),
+            can_access=lambda state, player: state.has("Scan Visor", player),
+        )
+        self.add_location(
+            name="Container Shot Down",
+            locked_item=MetroidPrime2Item(
+                name="Temple Grounds - Temple Assembly Site | Container Shot Down",
+                classification=ItemClassification.progression,
+                code=None,
+                player=player,
+            ),
+            can_access=lambda state, player: condition_and([
+                state.has("Temple Grounds - Temple Assembly Site | Container Moved", player),
+                condition_or([
+                    can_use_power_beam(state, player),
+                    can_use_dark_beam(state, player),
+                    can_use_light_beam(state, player),
+                    can_use_annihilator_beam(state, player),
                 ]),
-                parent=self,
-            ),
-        ]
+            ]),
+        )
 
 
 class TempleAssemblySite_CollapsedTunnelSide(MetroidPrime2Region):
@@ -160,19 +155,16 @@ class TempleAssemblySite_CollapsedTunnelSide(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Light Beam Block Opened",
-                locked_item=MetroidPrime2Item(
-                    name="Temple Grounds - Temple Assembly Site | Light Beam Block Opened",
-                    classification=ItemClassification.progression,
-                    code=None,
-                    player=player,
-                ),
-                can_access=lambda state, player: can_use_light_beam(state, player),
-                parent=self,
+        self.add_location(
+            name="Light Beam Block Opened",
+            locked_item=MetroidPrime2Item(
+                name="Temple Grounds - Temple Assembly Site | Light Beam Block Opened",
+                classification=ItemClassification.progression,
+                code=None,
+                player=player,
             ),
-        ]
+            can_access=lambda state, player: can_use_light_beam(state, player),
+        )
 
 
 class TempleAssemblySite_DynamoChamberLedge(MetroidPrime2Region):
@@ -206,13 +198,10 @@ class TempleAssemblySite_ItemLedge(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Pickup (Missile Expansion)",
-                can_access=lambda state, player: state.has("Morph Ball", player),
-                parent=self,
-            ),
-        ]
+        self.add_location(
+            name="Pickup (Missile Expansion)",
+            can_access=lambda state, player: state.has("Morph Ball", player),
+        )
 
 
 class TempleAssemblySite_StorageCavernBSide(MetroidPrime2Region):

@@ -2,7 +2,6 @@ from BaseClasses import MultiWorld
 
 from ... import can_activate_dark_portal, can_lay_bomb, can_use_grapple_beam, can_use_screw_attack, has_trick_enabled
 from .....Enums import DoorCover
-from .....Locations import MetroidPrime2Location
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
 from .....Utils import condition_and, condition_or
 
@@ -70,13 +69,10 @@ class GrandWindchamber_Platform(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Pickup (Sunburst)",
-                can_access=lambda state, player: True,
-                parent=self,
-            ),
-        ]
+        self.add_location(
+            name="Pickup (Sunburst)",
+            can_access=lambda state, player: True,
+        )
 
 
 class GrandWindchamber_WindchamberGatewaySide(MetroidPrime2Region):

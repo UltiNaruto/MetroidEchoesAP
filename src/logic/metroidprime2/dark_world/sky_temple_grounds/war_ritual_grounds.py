@@ -2,7 +2,6 @@ from BaseClasses import MultiWorld
 
 from ... import can_use_seeker_launcher, has_dark_suit, has_light_suit
 from .....Enums import DoorCover
-from .....Locations import MetroidPrime2Location
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
 from .....Utils import condition_and, condition_or
 
@@ -17,7 +16,7 @@ class WarRitualGrounds_BaseAccessSide(MetroidPrime2Region):
             rule=lambda state, player: state.can_reach("Sky Temple Grounds - Base Access (Top)", player),
         ),
         MetroidPrime2Exit(
-            destination="Sky Temple Grounds - War Ritual Grounds (Center)",
+            destination="Sky Temple Grounds - War Ritual Grounds (Safe Zone)",
             door=DoorCover.Opened,
             rule=lambda state, player: condition_or([
                 state.count("Energy Tank", player) >= 2,
@@ -33,8 +32,8 @@ class WarRitualGrounds_Item(MetroidPrime2Region):
     desc = "Item"
     exits_ = [
         MetroidPrime2Exit(
-            destination="Sky Temple Grounds - War Ritual Grounds",
-            door=DoorCover.Any,
+            destination="Sky Temple Grounds - War Ritual Grounds (Safe Zone)",
+            door=DoorCover.Opened,
             rule=lambda state, player: condition_or([
                 has_dark_suit(state, player),
                 has_light_suit(state, player),
@@ -45,13 +44,10 @@ class WarRitualGrounds_Item(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="Pickup (Missile Expansion)",
-                can_access=lambda state, player: True,
-                parent=self,
-            ),
-        ]
+        self.add_location(
+            name="Pickup (Missile Expansion)",
+            can_access=lambda state, player: True,
+        )
 
 
 class WarRitualGrounds_SafeZone(MetroidPrime2Region):

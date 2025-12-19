@@ -9,7 +9,6 @@ from ... import (
 )
 from .....Enums import DoorCover
 from .....Items import MetroidPrime2Item
-from .....Locations import MetroidPrime2Location
 from .....Regions import MetroidPrime2Exit, MetroidPrime2Region
 from .....Utils import condition_and, condition_or
 
@@ -62,25 +61,22 @@ class IngWindchamber_Portal(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="South Grapple Up",
-                locked_item=MetroidPrime2Item(
-                    name="Sky Temple Grounds - Ing Windchamber | South Grapple Up",
-                    classification=ItemClassification.progression,
-                    code=None,
-                    player=player,
-                ),
-                can_access=lambda state, player: condition_and([
-                    state.can_reach(spot="Sky Temple Grounds - Ing Windchamber (East)", player=player),
-                    state.can_reach(spot="Sky Temple Grounds - Ing Windchamber (West)", player=player),
-                    state.can_reach(spot="Sky Temple Grounds - Ing Windchamber (North)", player=player),
-                    can_use_boost_ball(state, player),
-                    can_use_seeker_launcher(state, player),
-                ]),
-                parent=self,
+        self.add_location(
+            name="South Grapple Up",
+            locked_item=MetroidPrime2Item(
+                name="Sky Temple Grounds - Ing Windchamber | South Grapple Up",
+                classification=ItemClassification.progression,
+                code=None,
+                player=player,
             ),
-        ]
+            can_access=lambda state, player: condition_and([
+                state.can_reach(spot="Sky Temple Grounds - Ing Windchamber (East)", player=player),
+                state.can_reach(spot="Sky Temple Grounds - Ing Windchamber (West)", player=player),
+                state.can_reach(spot="Sky Temple Grounds - Ing Windchamber (North)", player=player),
+                can_use_boost_ball(state, player),
+                can_use_seeker_launcher(state, player),
+            ]),
+        )
 
 
 class IngWindchamber_North(MetroidPrime2Region):
@@ -105,26 +101,23 @@ class IngWindchamber_North(MetroidPrime2Region):
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):
         super().__init__(region_name, player, multiworld)
 
-        self.locations = [
-            MetroidPrime2Location(
-                name="North Grapple Up",
-                locked_item=MetroidPrime2Item(
-                    name="Sky Temple Grounds - Ing Windchamber | North Grapple Up",
-                    classification=ItemClassification.progression,
-                    code=None,
-                    player=player,
-                ),
-                can_access=lambda state, player: condition_and([
-                    state.can_reach(spot="Sky Temple Grounds - Ing Windchamber (East)", player=player),
-                    state.can_reach(spot="Sky Temple Grounds - Ing Windchamber (West)", player=player),
-                    # aka South
-                    state.can_reach(spot="Sky Temple Grounds - Ing Windchamber (Portal)", player=player),
-                    can_use_boost_ball(state, player),
-                    can_use_seeker_launcher(state, player),
-                ]),
-                parent=self,
+        self.add_location(
+            name="North Grapple Up",
+            locked_item=MetroidPrime2Item(
+                name="Sky Temple Grounds - Ing Windchamber | North Grapple Up",
+                classification=ItemClassification.progression,
+                code=None,
+                player=player,
             ),
-        ]
+            can_access=lambda state, player: condition_and([
+                state.can_reach(spot="Sky Temple Grounds - Ing Windchamber (East)", player=player),
+                state.can_reach(spot="Sky Temple Grounds - Ing Windchamber (West)", player=player),
+                # aka South
+                state.can_reach(spot="Sky Temple Grounds - Ing Windchamber (Portal)", player=player),
+                can_use_boost_ball(state, player),
+                can_use_seeker_launcher(state, player),
+            ]),
+        )
 
 
 class IngWindchamber_West(MetroidPrime2Region):
