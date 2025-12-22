@@ -72,8 +72,7 @@ class WarRitualGrounds_SafeZone(MetroidPrime2Region):
                     has_dark_suit(state, player),
                     has_light_suit(state, player),
                 ]),
-                state.has("Dark Visor", player),
-                can_use_seeker_launcher(state, player),
+                can_use_seeker_launcher(state, player, has_dark_visor=True),
             ]),
         ),
         MetroidPrime2Exit(
