@@ -1,4 +1,5 @@
 from BaseClasses import ItemClassification, MultiWorld
+from ... import can_use_seeker_launcher
 
 from .....Enums import DoorCover
 from .....Items import MetroidPrime2Item
@@ -87,5 +88,5 @@ class SacredBridge_SacredPathSide(MetroidPrime2Region):
                 code=None,
                 player=player,
             ),
-            can_access=lambda state, player: True,
+            can_access=lambda state, player: can_use_seeker_launcher(state, player, has_dark_visor=True),
         )
