@@ -6,20 +6,20 @@ from ...Options import MetroidPrime2Options, FinalBoss
 from ...Utils import condition_and, condition_or
 
 
-def has_dark_ammo(state: CollectionState, player: int) -> bool:
-    return state.has_any({
-        "Dark Beam",
-        "Dark Ammo Expansion",
-        "Beam Ammo Expansion",
-    }, player)
+def has_dark_ammo(state: CollectionState, player: int, amount: int=1) -> bool:
+    ammo = 50 if can_use_dark_beam(state, player) else 0
+    ammo += state.count("Dark Ammo Expansion", player) * 50
+    ammo += state.count("Beam Ammo Expansion", player) * 50
+
+    return ammo >= amount
 
 
-def has_light_ammo(state: CollectionState, player: int) -> bool:
-    return state.has_any({
-        "Light Beam",
-        "Light Ammo Expansion",
-        "Beam Ammo Expansion",
-    }, player)
+def has_light_ammo(state: CollectionState, player: int, amount: int=1) -> bool:
+    ammo = 50 if can_use_light_beam(state, player) else 0
+    ammo += state.count("Light Ammo Expansion", player) * 50
+    ammo += state.count("Beam Ammo Expansion", player) * 50
+
+    return ammo >= amount
 
 
 def can_use_grapple_beam(state: CollectionState, player: int) -> bool:
@@ -56,15 +56,15 @@ def can_use_annihilator_beam(state: CollectionState, player: int) -> bool:
         condition_or([
             # check if we have both dark and light ammo
             condition_and([
-                has_dark_ammo(state, player),
-                has_light_ammo(state, player),
+                has_dark_ammo(state, player, 1),
+                has_light_ammo(state, player, 1),
             ]),
             # in case we need to activate a portal without ammo
             # or if we need to open an annihilator door
             condition_and([
                 condition_or([
-                    not has_dark_ammo(state, player),
-                    not has_light_ammo(state, player),
+                    not has_dark_ammo(state, player, 1),
+                    not has_light_ammo(state, player, 1),
                 ]),
                 condition_or([
                     state.has("Charge Beam", player),
@@ -120,14 +120,14 @@ def can_use_charged_annihilator_beam(state: CollectionState, player: int, requir
             not requires_ammo,
             condition_and([
                 requires_ammo,
-                has_dark_ammo(state, player),
-                has_light_ammo(state, player),
+                has_dark_ammo(state, player, 5),
+                has_light_ammo(state, player, 5),
             ]),
         ])
     ])
 
 
-def can_use_super_missile(state: CollectionState, player: int) -> bool:
+def can_use_super_missile(state: CollectionState, player: int, amount_to_use: int=1) -> bool:
     return condition_and([
         condition_or([
             state.has_all({
@@ -137,11 +137,11 @@ def can_use_super_missile(state: CollectionState, player: int) -> bool:
             }, player),
             state.count("Progressive Power Beam", player) >= 3,
         ]),
-        has_missile_count(state, player, 5),
+        has_missile_count(state, player, 5 * amount_to_use),
     ])
 
 
-def can_use_darkburst(state: CollectionState, player: int) -> bool:
+def can_use_darkburst(state: CollectionState, player: int, amount_to_use: int=1) -> bool:
     return condition_and([
         condition_or([
             state.has_all({
@@ -151,11 +151,12 @@ def can_use_darkburst(state: CollectionState, player: int) -> bool:
             }, player),
             state.count("Progressive Dark Beam", player) >= 3,
         ]),
-        has_missile_count(state, player, 5),
+        has_dark_ammo(state, player, 30 * amount_to_use),
+        has_missile_count(state, player, 5 * amount_to_use),
     ])
 
 
-def can_use_sunburst(state: CollectionState, player: int) -> bool:
+def can_use_sunburst(state: CollectionState, player: int, amount_to_use: int=1) -> bool:
     return condition_and([
         condition_or([
             state.has_all({
@@ -165,11 +166,12 @@ def can_use_sunburst(state: CollectionState, player: int) -> bool:
             }, player),
             state.count("Progressive Light Beam", player) >= 3,
         ]),
-        has_missile_count(state, player, 5),
+        has_light_ammo(state, player, 30 * amount_to_use),
+        has_missile_count(state, player, 5 * amount_to_use),
     ])
 
 
-def can_use_sonic_boom(state: CollectionState, player: int) -> bool:
+def can_use_sonic_boom(state: CollectionState, player: int, amount_to_use: int=1) -> bool:
     return condition_and([
         condition_or([
             state.has_all({
@@ -179,17 +181,27 @@ def can_use_sonic_boom(state: CollectionState, player: int) -> bool:
             }, player),
             state.count("Progressive Annihilator Beam", player) >= 3,
         ]),
-        has_dark_ammo(state, player),
-        has_light_ammo(state, player),
-        has_missile_count(state, player, 5),
+        has_dark_ammo(state, player, 30 * amount_to_use),
+        has_light_ammo(state, player, 30 * amount_to_use),
+        has_missile_count(state, player, 5 * amount_to_use),
     ])
 
 
-def can_use_seeker_launcher(state: CollectionState, player: int) -> bool:
+def can_use_seeker_launcher(state: CollectionState, player: int, amount_to_use: int=1, has_dark_visor: bool = False) -> bool:
     return condition_and([
-        state.has("Seeker Launcher", player),
-        # consider more missile to start the charging process of Seeker Launcher
-        has_missile_count(state, player, 6),
+        condition_or([
+            not has_dark_visor,
+            # used when checking for Dark Visor locked seeker locks
+            condition_and([
+                has_dark_visor,
+                state.has("Dark Visor", player),
+            ]),
+        ]),
+        condition_and([
+            state.has("Seeker Launcher", player),
+            # consider more missile to start the charging process of Seeker Launcher
+            has_missile_count(state, player, 1 + 5 * amount_to_use),
+        ]),
     ])
 
 
