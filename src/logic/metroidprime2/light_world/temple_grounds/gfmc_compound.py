@@ -89,6 +89,14 @@ class GFMCCompound_Center(MetroidPrime2Region):
             door=DoorCover.Opened,
             rule=lambda state, player: has_trick_enabled(state, player, "Temple Grounds - GFMC Compound | DBJ to Windchamber Tunnel Ledge"),
         ),
+        MetroidPrime2Exit(
+            destination="Temple Grounds - GFMC Compound (Above Ship)",
+            door=DoorCover.Opened,
+            rule=lambda state, player: state.has_all({
+                "Temple Grounds - GFMC Compound | Cannon Activated",
+                "Morph Ball",
+            }, player),
+        ),
     ]
 
     def __init__(self, region_name: str, player: int, multiworld: MultiWorld):

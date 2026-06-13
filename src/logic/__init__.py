@@ -99,7 +99,7 @@ def locations() -> list[str]:
         "Agon Wastes - Storage C - Pickup (Missile Expansion)",
         "Dark Agon Wastes - Ing Cache 2 - Pickup (Sonic Boom)",
         "Torvus Bog - Torvus Lagoon - Pickup (Missile Expansion)",
-        "Torvus Bog - Portal Chamber - Pickup (Missile Expansion)",
+        "Torvus Bog - Portal Chamber (Light) - Pickup (Missile Expansion)",
         "Torvus Bog - Path of Roots - Pickup (Missile Expansion)",
         "Torvus Bog - Forgotten Bridge - Pickup (Missile Expansion)",
         "Torvus Bog - Great Bridge - Pickup (Power Bomb Expansion)",
@@ -107,7 +107,7 @@ def locations() -> list[str]:
         "Torvus Bog - Plaza Access - Pickup (Missile Expansion)",
         "Torvus Bog - Abandoned Worksite - Pickup (Missile Expansion)",
         "Dark Torvus Bog - Poisoned Bog - Pickup (Sky Temple Key 3)",
-        "Dark Torvus Bog - Venomous Pond - Pickup (Dark Temple Key 3)",
+        "Dark Torvus Bog - Venomous Pond - Pickup (Dark Torvus Key 3)",
         "Torvus Bog - Temple Access - Pickup (Energy Tank)",
         "Torvus Bog - Torvus Plaza - Pickup (Energy Tank)",
         "Dark Torvus Bog - Putrid Alcove - Pickup (Power Bomb Expansion)",
@@ -121,7 +121,7 @@ def locations() -> list[str]:
         "Dark Torvus Bog - Cache B - Pickup (Energy Tank)",
         "Torvus Bog - Hydrodynamo Station - Pickup (Missile Expansion)",
         "Torvus Bog - Torvus Energy Controller - Pickup (Emerald Translator)",
-        "Dark Torvus Bog - Undertemple Access - Pickup (Dark Torvus Key 1)",
+        "Dark Torvus Bog - Undertemple Access - Pickup (Dark Torvus Key 2)",
         "Torvus Bog - Gathering Hall - Pickup (Missile Expansion)",
         "Torvus Bog - Training Chamber - Pickup (Missile Expansion)",
         "Dark Torvus Bog - Sacrificial Chamber - Pickup (Grapple Beam)",
@@ -198,10 +198,10 @@ def set_rules(multiworld: MultiWorld, player: int):
     if options.final_bosses.current_option_name.lower() == "disabled":
         sky_temple_gateway = multiworld.get_region("Sky Temple Grounds - Sky Temple Gateway", player)
         exit_to_credits = sky_temple_gateway.create_exit(f"{sky_temple_gateway.name} -> {credits_outro.name}")
-        exit_to_credits.connect(sky_temple_gateway)
+        exit_to_credits.connect(credits_outro)
     elif options.final_bosses.current_option_name.lower() == "emperor ing only":
         sky_temple_energy_controller = multiworld.get_region("Sky Temple - Sky Temple Energy Controller", player)
         exit_to_credits = sky_temple_energy_controller.create_exit(f"{sky_temple_energy_controller.name} -> {credits_outro.name}")
-        exit_to_credits.connect(sky_temple_energy_controller)
+        exit_to_credits.connect(credits_outro)
 
-    multiworld.completion_condition[player] = lambda state: state.has("Victory", player)
+    multiworld.completion_condition[player] = lambda state: state.has("Sky Temple Grounds - Sky Temple Gateway | Victory", player)
