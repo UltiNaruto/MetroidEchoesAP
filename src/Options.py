@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from Options import Choice, DeathLink, OptionList, PerGameCommonOptions, Range, Toggle
+from Options import Choice, DeathLink, OptionList, OptionSet, PerGameCommonOptions, Range, Toggle
 
 
 class StartLocation(Choice):
@@ -50,6 +50,33 @@ class ShuffleSpringBall(Choice):
     option_locked_by_bomb = 1
     option_shuffled = 2
     default = 0
+
+
+class StartingItems(OptionSet):
+    """Choose additional items to start with beyond Charge Beam and Scan Visor.
+    Morph Ball is recommended for generation stability; Missile Launcher removes the need to find it early."""
+    display_name = "Starting Items"
+    valid_keys = {
+        "Morph Ball",
+        "Missile Launcher",
+        "Power Bomb Launcher",
+        "Space Jump Boots",
+        "Dark Suit",
+        "Light Suit",
+        "Grapple Beam",
+        "Dark Beam",
+        "Light Beam",
+        "Annihilator Beam",
+        "Seeker Launcher",
+        "Dark Visor",
+        "Echo Visor",
+        "Gravity Boost",
+        "Boost Ball",
+        "Spider Ball",
+        "Dark Ammo Expansion",
+        "Light Ammo Expansion",
+    }
+    default = {"Morph Ball"}
 
 
 class RemoveMissileCoverAtSaveStation(Toggle):
@@ -115,6 +142,30 @@ class Tricks(OptionList):
         "Temple Grounds - Temple Assembly Site | NSJ SA to Item Ledge",
         "Temple Grounds - Temple Assembly Site | Slope Jump to Item Ledge",
         "Temple Grounds - Trooper Security Station | SA to break the gate",
+        "Air Underwater",
+        "Bomb Jump",
+        "Bomb Slot without Bombs",
+        "Bomb Space Jump",
+        "Boost Jump",
+        "Combat",
+        "Combat/Scan Dash",
+        "Extended Dash",
+        "Instant Morph",
+        "Invisible Objects",
+        "Jump Off Enemy",
+        "Knowledge",
+        "Movement",
+        "Open Gates from Behind",
+        "Roll Jump",
+        "Screw Attack into Tunnels/Openings",
+        "Screw Attack without Space Jump",
+        "Single Room Out of Bounds",
+        "Slope Jump",
+        "Standable Terrain",
+        "Suitless Dark Aether",
+        "Terminal Fall Abuse",
+        "Underwater Dash",
+        "Wall Boost",
     ]
 
 
@@ -123,6 +174,7 @@ class MetroidPrime2Options(PerGameCommonOptions):
     start_location: StartLocation
     final_bosses: FinalBoss
     sky_temple_keys_count: SkyTempleKeyCount
+    starting_items: StartingItems
     require_missile_launcher: RequireMissileLauncher
     require_power_bomb_launcher: RequirePowerBombLauncher
     shuffle_scan_visor: ShuffleScanVisor

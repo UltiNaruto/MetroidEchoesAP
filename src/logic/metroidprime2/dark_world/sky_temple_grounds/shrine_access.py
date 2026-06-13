@@ -21,7 +21,7 @@ class ShrineAccess_SafeZone(MetroidPrime2Region):
             rule=lambda state, player: condition_and([
                 can_activate_safe_zone(state, player),
                 condition_or([
-                    state.count("Energy Tank") >= 1,
+                    state.count("Energy Tank", player) >= 1,
                     has_dark_suit(state, player),
                     has_light_suit(state, player),
                 ]),
@@ -65,7 +65,7 @@ class ShrineAccess_WarRitualGroundsSide(MetroidPrime2Region):
             rule=lambda state, player: condition_and([
                 can_activate_safe_zone(state, player),
                 condition_or([
-                    state.count("Energy Tank") >= 1,
+                    state.count("Energy Tank", player) >= 1,
                     has_dark_suit(state, player),
                     has_light_suit(state, player),
                 ]),
@@ -82,7 +82,7 @@ class ShrineAccess_WarRitualGroundsSide(MetroidPrime2Region):
             destination="Sky Temple Grounds - War Ritual Grounds (Shrine Access Side)",
             door=DoorCover.Any,
             rule=lambda state, player: condition_or([
-                state.count("Energy Tank") >= 1,
+                state.count("Energy Tank", player) >= 1,
                 has_dark_suit(state, player),
                 has_light_suit(state, player),
             ]),

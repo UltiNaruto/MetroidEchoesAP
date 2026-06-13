@@ -16,7 +16,11 @@ class MetroidPrime2Location(Location):
             idx = parent.multiworld.worlds[parent.player].location_name_to_id[loc_name]
 
         super().__init__(parent.player, f"{strip_description_from_region_name(parent.name)} - {name}", idx, parent)
-        self.can_access = lambda state: can_access(state, self.player)
+
         if locked_item is not None:
             locked_item.location = self
             self.place_locked_item(locked_item)
+        # No can_access or access_rule override: accessibility is enforced entirely
+        # through region exit rules (DoorCover types + rule lambdas in each room file).
+        # This lets fill_restrictive place all progression items without deadlocking
+        # on location-level circular dependencies.
