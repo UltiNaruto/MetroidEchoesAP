@@ -19,7 +19,7 @@ class GatewayAccess_SafeZone(MetroidPrime2Region):
                 condition_and([
                     can_activate_safe_zone(state, player),
                     condition_or([
-                        state.count("Energy Tank") >= 1,
+                        state.count("Energy Tank", player) >= 1,
                         has_dark_suit(state, player),
                     ]),
                 ]),
@@ -33,7 +33,7 @@ class GatewayAccess_SafeZone(MetroidPrime2Region):
                 condition_and([
                     can_activate_safe_zone(state, player),
                     condition_or([
-                        state.count("Energy Tank") >= 1,
+                        state.count("Energy Tank", player) >= 1,
                         has_dark_suit(state, player),
                     ]),
                 ]),
@@ -54,7 +54,7 @@ class GatewayAccess_ShrineAccessSide(MetroidPrime2Region):
                 condition_and([
                     can_activate_safe_zone(state, player),
                     condition_or([
-                        state.count("Energy Tank") >= 1,
+                        state.count("Energy Tank", player) >= 1,
                         has_dark_suit(state, player),
                     ]),
                 ]),
@@ -68,7 +68,7 @@ class GatewayAccess_ShrineAccessSide(MetroidPrime2Region):
                 condition_and([
                     can_activate_safe_zone(state, player),
                     condition_or([
-                        state.count("Energy Tank") >= 1,
+                        state.count("Energy Tank", player) >= 1,
                         has_dark_suit(state, player),
                     ]),
                 ]),
@@ -89,7 +89,7 @@ class GatewayAccess_SkyTempleGatewaySide(MetroidPrime2Region):
                 condition_and([
                     can_activate_safe_zone(state, player),
                     condition_or([
-                        state.count("Energy Tank") >= 1,
+                        state.count("Energy Tank", player) >= 1,
                         has_dark_suit(state, player),
                     ]),
                 ]),

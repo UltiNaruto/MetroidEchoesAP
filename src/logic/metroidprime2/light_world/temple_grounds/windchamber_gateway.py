@@ -28,7 +28,7 @@ class WindchamberGateway_PathOfEyesSide(MetroidPrime2Region):
     desc = "Path of Eyes Side"
     exits_ = [
         MetroidPrime2Exit(
-            destination="Temple Grounds - Path of Eyes (Winchamber Gateway Side)",
+            destination="Temple Grounds - Path of Eyes (Windchamber Gateway Side)",
             door=DoorCover.SuperMissile,
             rule=lambda state, player: True,
         ),

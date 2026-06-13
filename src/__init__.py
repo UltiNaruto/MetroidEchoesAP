@@ -70,12 +70,20 @@ class MetroidPrime2World(World):
     def generate_early(self) -> None:
         self.seed = self.random.randrange(99999999)
 
-        # Those aren't shuffled (except scan visor which can be shuffled)
+        # Always pre-collected (not shuffled)
         self.multiworld.push_precollected(self.create_item("Power Suit"))
         self.multiworld.push_precollected(self.create_item("Power Beam"))
         self.multiworld.push_precollected(self.create_item("Combat Visor"))
+        self.multiworld.push_precollected(self.create_item("Charge Beam"))
+        self.multiworld.push_precollected(self.create_item("Morph Ball"))
+
+        # Scan Visor: pre-collected unless shuffled
         if self.options.shuffle_scan_visor.current_option_name == "No":
             self.multiworld.push_precollected(self.create_item("Scan Visor"))
+
+        # Player-configured starting items
+        for item_name in self.options.starting_items.value:
+            self.multiworld.push_precollected(self.create_item(item_name))
 
         # Starting area
         match self.options.start_location.current_option_name.lower():
@@ -95,7 +103,7 @@ class MetroidPrime2World(World):
         # Remove extra sky temple keys to free up some space
         # for fillers in item pool
         for i in range(9 - self.options.sky_temple_keys_count.value):
-            itempool.remove(SKY_TEMPLE_KEYS[self.sky_temple_keys_count + i])
+            itempool.remove(SKY_TEMPLE_KEYS[self.options.sky_temple_keys_count.value + i])
             itempool.append("Missile Expansion")
 
         if self.options.shuffle_scan_visor.current_option_name == "Yes":
@@ -116,9 +124,9 @@ class MetroidPrime2World(World):
 
         itempool = list(map(lambda name: self.create_item(name), itempool))
 
-        # Mark 5 missile expansions as progression
+        # Mark up to 5 missile expansions as progression (for has_missile_count checks)
         missile_expansions = [idx for idx, val in enumerate(itempool) if val.name == "Missile Expansion"]
-        for idx in range(max(5, len(missile_expansions))):
+        for idx in range(min(5, len(missile_expansions))):
             itempool[missile_expansions[idx]].classification = ItemClassification.progression
 
         self.multiworld.itempool += itempool

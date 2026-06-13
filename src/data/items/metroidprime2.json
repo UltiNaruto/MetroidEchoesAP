@@ -268,9 +268,9 @@
   "Missile Expansion": {
     "index": 44,
     "model": "Missile Expansion",
-    "default_shuffled_count": 8,
+    "default_shuffled_count": 49,
     "vanilla_locations": [],
-    "progression": "progression"
+    "progression": "useful"
   },
   "Dark Ammo Expansion": {
     "index": 45,
@@ -295,7 +295,7 @@
     "model": "Beam Ammo Expansion",
     "default_shuffled_count": 4,
     "vanilla_locations": [],
-    "progression": "progression"
+    "progression": "useful"
   },
   "Double Damage": {
     "index": 58,

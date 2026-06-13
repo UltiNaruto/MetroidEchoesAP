@@ -11,7 +11,7 @@ class TempleTransportC(MetroidPrime2Region):
             rule=lambda state, player: state.has("Scan Visor", player),
         ),
         MetroidPrime2Exit(
-            destination="Great Temple - Transport C Access",
+            destination="Great Temple - Transport C Access (Elevator Side)",
             door=DoorCover.Any,
             rule=lambda state, player: True,
         ),

@@ -222,7 +222,7 @@ def can_use_spider_ball(state: CollectionState, player: int) -> bool:
 def can_lay_bomb(state: CollectionState, player: int) -> bool:
     return state.has_all({
         "Morph Ball",
-        "Morph Ball Bombs",
+        "Morph Ball Bomb",
     }, player)
 
 
@@ -406,7 +406,7 @@ def can_activate_safe_zone(state: CollectionState, player: int) -> bool:
 def has_enough_sky_temple_keys(state: CollectionState, player: int) -> bool:
     options = cast(MetroidPrime2Options, state.multiworld.worlds[player].options)
     needed_sky_temple_keys_count: int = options.sky_temple_keys_count.value
-    sky_temple_keys_count: int = sum([1 for i in range(9) if state.has(f'Sky Temple Key {i}', player)])
+    sky_temple_keys_count: int = sum([1 for i in range(1, 10) if state.has(f'Sky Temple Key {i}', player)])
 
     return sky_temple_keys_count >= needed_sky_temple_keys_count
 

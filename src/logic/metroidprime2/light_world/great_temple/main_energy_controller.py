@@ -11,7 +11,7 @@ class MainEnergyController(MetroidPrime2Region):
         MetroidPrime2Exit(
             destination="Agon Wastes - Agon Energy Controller",
             door=DoorCover.Opened,
-            rule=lambda state, player: state.has("Great Temple - Main Energy Controller | Can Pick Up Light Suit Item"),
+            rule=lambda state, player: state.has("Great Temple - Main Energy Controller | Can Pick Up Light Suit Item", player),
         ),
         MetroidPrime2Exit(
             door=DoorCover.Any,
@@ -21,17 +21,17 @@ class MainEnergyController(MetroidPrime2Region):
         MetroidPrime2Exit(
             door=DoorCover.Opened,
             destination="Great Temple - Main Energy Controller (Light Suit Item)",
-            rule=lambda state, player: state.has("Sanctuary Fortress - Sanctuary Energy Controller | Energy Returned"),
+            rule=lambda state, player: state.has("Sanctuary Fortress - Sanctuary Energy Controller | Energy Returned", player),
         ),
         MetroidPrime2Exit(
             destination="Torvus Bog - Torvus Energy Controller",
             door=DoorCover.Opened,
-            rule=lambda state, player: state.has("Great Temple - Main Energy Controller | Can Pick Up Light Suit Item"),
+            rule=lambda state, player: state.has("Great Temple - Main Energy Controller | Can Pick Up Light Suit Item", player),
         ),
         MetroidPrime2Exit(
             destination="Sanctuary Fortress - Sanctuary Energy Controller",
             door=DoorCover.Opened,
-            rule=lambda state, player: state.has("Great Temple - Main Energy Controller | Can Pick Up Light Suit Item"),
+            rule=lambda state, player: state.has("Great Temple - Main Energy Controller | Can Pick Up Light Suit Item", player),
         ),
     ]
 
@@ -51,7 +51,7 @@ class MainEnergyController_LightSuitItem(MetroidPrime2Region):
         MetroidPrime2Exit(
             destination="Great Temple - Main Energy Controller",
             door=DoorCover.Opened,
-            rule=lambda state, player: state.has("Great Temple - Main Energy Controller | Can Pick Up Light Suit Item"),
+            rule=lambda state, player: state.has("Great Temple - Main Energy Controller | Can Pick Up Light Suit Item", player),
         ),
     ]
 
