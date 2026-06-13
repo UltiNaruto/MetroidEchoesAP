@@ -28,13 +28,6 @@ Archipelago's generation runs in roughly this order:
    game's completion condition can be satisfied. If not, throws:
    `FillError: Game appears as unbeatable`.
 
-The key thing about `accessibility_corrections` is that it starts from scratch with
-only precollected items. This means if a progression item is placed behind a door
-that requires another progression item, and neither item can be reached from base
-state, you get a deadlock. The 15 inaccessible locations in this PR were all
-deadlocked in exactly this way — the rooms were physically connected in the graph
-but their entry conditions required items that were themselves unreachable.
-
 ### Note on `can_access` and event items
 
 `MetroidPrime2Location.__init__` accepts a `can_access` parameter but does **not**
@@ -44,8 +37,6 @@ Archipelago. This means:
   accessible, regardless of what their `can_access` lambda says.
 - Pickup locations are also always accessible once their region is reachable —
   `fill_restrictive` and the accessibility sweep don't check `can_access`.
-
-This is important for understanding several of the fixes below.
 
 ### Note on `DoorCover.Opened` and the tuple bug
 
@@ -64,9 +55,7 @@ def _set_rule(entrance, exit_, player):
 For `DoorCover.Opened` exits, `condition` is never updated after the first line, so
 it returns a 1-element tuple. In Python, any non-empty tuple is truthy, so **all
 `DoorCover.Opened` exits are always passable regardless of their rule lambda**. This
-is why portal traversal (which uses `DoorCover.Opened`) works freely, and why
-sub-region transitions (also `DoorCover.Opened`) are always traversable. This bug is
-not fixed in this PR (it would require careful review of every Opened exit's
+bug is not fixed in this PR (it would require careful review of every Opened exit's
 intended gating), but it's important to know about when reading the fix logic.
 
 ---
@@ -110,181 +99,7 @@ In practice this is always passable from base state because:
 
 ---
 
-## Fix 2 — Hydrodynamo Station: no trick-free path to Hydrodynamo Shaft
-
-**File:** `src/logic/metroidprime2/light_world/torvus_bog/hydrodynamo_station.py`
-
-### What was wrong
-
-The exit from Hydrodynamo Station to Hydrodynamo Shaft required:
-
-```python
-Space Jump Boots + (
-    (Screw Attack + Air Underwater trick)
-    OR Underwater Dash trick
-)
-```
-
-With tricks disabled (the default), both alternatives were False, making Hydrodynamo
-Shaft permanently inaccessible. This blocked a large downstream chain:
-
-```
-Hydrodynamo Shaft
-  → Main Hydrochamber (always passable)
-    → portal to Undertemple (DoorCover.Opened → always passable via tuple bug)
-      → Undertemple Access (Power Bomb + events + SJB + suit)
-        → Undertemple Shaft
-          → Crypt Tunnel
-            → Crypt
-              → portal to Gathering Hall (DoorCover.Opened → always passable)
-                → Gathering Hall
-                  → Catacombs
-                    → Transit Tunnel East
-                    → Transit Tunnel South
-                    → Dungeon
-```
-
-That's 12+ locations blocked by this one missing path.
-
-### The fix
-
-Added `Gravity Boost` as the first alternative in the navigation `condition_or`:
-
-```python
-condition_or([
-    state.has("Gravity Boost", player),  # ← added
-    condition_and([
-        can_use_screw_attack(state, player),
-        has_trick_enabled(state, player, "Air Underwater"),
-    ]),
-    has_trick_enabled(state, player, "Underwater Dash"),
-]),
-```
-
-Gravity Boost is a normal progression item placed in the item pool. Once it's swept
-(from wherever `fill_restrictive` placed it), Hydrodynamo Shaft and the entire
-downstream chain become accessible.
-
----
-
-## Fix 3 — Dark Forgotten Bridge: no trick-free path to Dark Arena Tunnel
-
-**File:** `src/logic/metroidprime2/dark_world/dark_torvus_bog/dark_forgotten_bridge.py`
-
-### What was wrong
-
-The exit to Dark Arena Tunnel had a two-part `condition_and`. The second part was:
-
-```python
-condition_and([
-    state.has("Space Jump Boots", player),
-    condition_or([
-        condition_and([Morph Ball, bombs, Bomb Space Jump trick, suit]),
-        condition_and([Movement trick, Standable Terrain trick, suit]),
-    ]),
-])
-```
-
-With tricks disabled, both branches of the inner `condition_or` were False, making
-the entire second part always False. Since it was wrapped in `condition_and` with the
-first part, the whole exit rule was always False without tricks.
-
-In the actual game, once you rotate the bridge (an in-room event), you can simply
-walk/jump across with Space Jump Boots and suit protection. The rotated bridge event
-is placed at a location in Dark Forgotten Bridge — and since `can_access` is not
-enforced, it's always in state when the region is accessible.
-
-### The fix
-
-Added the rotated bridge event as the first alternative in the inner `condition_or`:
-
-```python
-condition_or([
-    condition_and([  # ← added: rotated bridge path
-        state.has(
-            "Dark Torvus Bog - Dark Forgotten Bridge | Event - Dark Forgotten Bridge Rotated",
-            player
-        ),
-        condition_or([
-            has_dark_suit(state, player),
-            has_light_suit(state, player),
-            state.count("Energy Tank", player) >= 1,
-        ]),
-    ]),
-    condition_and([Morph Ball, bombs, Bomb Space Jump trick, suit]),
-    condition_and([Movement trick, Standable Terrain trick, suit]),
-])
-```
-
-Since the event is always swept when Dark Forgotten Bridge is accessible, this path
-is always available with SJB + suit/ETank. Dark Arena Tunnel and Dark Torvus Arena
-(2 locations) become reachable.
-
----
-
-## Fix 4 — Judgment Pit: `condition_and` should be `condition_or` (translator bug)
-
-**File:** `src/logic/metroidprime2/dark_world/dark_agon_wastes/judgment_pit.py`
-
-### What was wrong
-
-The exit to Dark Agon Temple Access had this outer structure:
-
-```python
-rule=lambda state, player: condition_and([
-    condition_and([
-        # normal path: suit + (SJB or Bomb Jump trick or Screw Attack + Standable trick)
-        ...
-    ]),
-    condition_and([
-        # trick-only path: Screw Attack without Space Jump trick
-        can_use_screw_attack(state, player, z_axis=True),
-        has_trick_enabled(state, player, "Screw Attack without Space Jump"),
-        not (False),
-        condition_or([suit conditions]),
-    ]),
-])
-```
-
-The outer `condition_and` means BOTH paths must be true simultaneously. The second
-path requires the "Screw Attack without Space Jump" trick, which is always disabled
-by default. So the entire exit rule was always False without that specific trick
-enabled — even if the player had Space Jump Boots and a suit, which is all they
-actually need.
-
-This appears to be a `rando_translator.py` translation error: the two alternatives
-should be joined by `condition_or` (either path works), not `condition_and` (both
-paths must work at once).
-
-The same bug appears on the exit to Warrior's Walk in the same room — that one also
-has an outer `condition_and` wrapping two alternative paths. However, Warrior's Walk
-was already accessible via another route so it wasn't causing a fill error. It may
-still be worth reviewing.
-
-### The fix
-
-Changed the outermost `condition_and` to `condition_or` on the Dark Agon Temple
-Access exit:
-
-```python
-rule=lambda state, player: condition_or([  # ← was condition_and
-    condition_and([
-        # normal path
-        ...
-    ]),
-    condition_and([
-        # trick-only path (Screw Attack without Space Jump)
-        ...
-    ]),
-])
-```
-
-This unblocks: Judgment Pit → Dark Agon Temple Access → Dark Agon Temple → Trial
-Tunnel (2 locations).
-
----
-
-## Fix 5 — Completion condition: wrong item name
+## Fix 2 — Completion condition: wrong item name
 
 **File:** `src/logic/__init__.py`
 
@@ -308,10 +123,6 @@ such item exists in the game — the item is named with the full region path fol
 the convention used by all other event items in this codebase. So the condition
 always returned False, making every generated game appear unbeatable.
 
-This bug was hidden until Fix 1–4 were applied: previously the generation crashed
-earlier with the FillError about 15 items, so the beatability check was never
-reached.
-
 ### The fix
 
 ```python
@@ -322,7 +133,7 @@ multiworld.completion_condition[player] = lambda state: state.has(
 
 ---
 
-## Fix 6 — `set_rules`: credits exits connect to wrong region
+## Fix 3 — `set_rules`: credits exits connect to wrong region
 
 **File:** `src/logic/__init__.py`
 
@@ -353,9 +164,6 @@ exit_to_credits.connect(credits_outro)  # both occurrences
 
 | # | File | Bug | Impact |
 |---|------|-----|--------|
-| 1 | `gfmc_compound.py` | Above Ship sub-region unreachable (no inbound exit) | 1 location |
-| 2 | `hydrodynamo_station.py` | No trick-free path to Hydrodynamo Shaft | 12+ locations |
-| 3 | `dark_forgotten_bridge.py` | No trick-free path to Dark Arena Tunnel after bridge rotation | 2 locations |
-| 4 | `judgment_pit.py` | `condition_and` instead of `condition_or` (translator bug) | 2 locations |
-| 5 | `logic/__init__.py` | Completion condition checks wrong item name | Game always unbeatable |
-| 6 | `logic/__init__.py` | Credits exits self-loop instead of connecting to credits region | Affects disabled/emperor_ing_only modes |
+| 1 | `gfmc_compound.py` | Above Ship sub-region unreachable (no inbound exit) | 1 location permanently inaccessible |
+| 2 | `logic/__init__.py` | Completion condition checks wrong item name (`"Victory"` vs full path) | Game always appears unbeatable |
+| 3 | `logic/__init__.py` | Credits exits self-loop instead of connecting to credits region | Affects `disabled`/`emperor_ing_only` final boss modes |
