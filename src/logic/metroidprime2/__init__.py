@@ -1,6 +1,8 @@
+import math
 from typing import cast
 
 from BaseClasses import CollectionState
+
 from ...Enums import DoorCover
 from ...Options import MetroidPrime2Options, FinalBoss
 from ...Utils import condition_and, condition_or
@@ -403,6 +405,107 @@ def can_activate_safe_zone(state: CollectionState, player: int) -> bool:
     ])
 
 
+def can_activate_bomb_slot(state: CollectionState, player: int, trick: str) -> bool:
+    """Trick is not required if the player can lay bombs"""
+    return condition_and([
+        state.has('Morph Ball', player),
+        condition_or([
+            can_lay_bomb(state, player),
+            condition_and([
+                has_trick_enabled(state, player, trick),
+                condition_or([
+                    can_use_darkburst(state, player),
+                    can_use_sonic_boom(state, player)
+                ])
+            ])
+        ])
+    ])
+
+
+def catacombs_can_clip_through_gate(state, player, inside: bool = False) -> bool:
+    return condition_and([
+        condition_or([
+            condition_and([
+                can_use_screw_attack(state, player),
+                not inside
+            ]),
+            inside
+        ]),
+        has_trick_enabled(state, player, "Torvus Bog - Catacombs | Clip Through Gate")
+    ])
+
+
+def forgotten_bridge_bridge_to_portal(state, player) -> bool:
+    if state.has("Dark Torvus Bog - Dark Forgotten Bridge | Bomb Slot Activated", player):
+        return condition_or([
+            can_use_screw_attack(state, player),
+            condition_and([
+                has_trick_enabled(state, player, "Torvus Bog - Forgotten Bridge | Reverse Air Underwater"),
+                state.has("Gravity Boost", player)
+            ])
+        ])
+    return True
+
+
+def hydrodynamo_station_has_scanned_panels(state: CollectionState, player: int) -> bool:
+    return condition_and([
+        state.has("Torvus Bog - Hydrodynamo Station | Scanned North Panel", player),
+        state.has("Torvus Bog - Hydrodynamo Station | Scanned West Panel", player),
+        state.has("Torvus Bog - Hydrodynamo Station | Scanned East Panel", player),
+    ])
+
+
+def transit_tunnel_south_can_progress_room(state, player) -> bool:
+    return condition_and([
+        state.has('Gravity Boost', player),
+        can_lay_bomb(state, player)
+    ])
+
+
+
+def can_reach_underwater_bomb_slot(state: CollectionState, player: int, trick: str) -> bool:
+    """Trick is not required if the player has Gravity Boost"""
+    return condition_or([
+        condition_and([
+            state.has('Space Jump Boots', player),
+            has_trick_enabled(state, player, trick)
+        ]),
+        state.has('Gravity Boost', player)
+    ])
+
+
+def can_boost_jump(state: CollectionState, player: int, trick: str) -> bool:
+    return condition_and([
+        has_trick_enabled(state, player, trick),
+        can_use_boost_ball(state, player)
+    ])
+
+
+def can_underwater_dash(state: CollectionState, player: int, trick: str) -> bool:
+    """This trick depends on the underwater physics, so it is no longer usable if the player has Grav Boost."""
+    return condition_and([
+        has_trick_enabled(state, player, trick),
+        state.has("Space Jump Boots", player)
+    ])
+
+
+def can_underwater_boost_jump(state: CollectionState, player: int,
+                              boost_jump_trick: str, underwater_dash_trick: str) -> bool:
+    # https://youtu.be/7I2Jl824CMI
+    return condition_and([
+        can_boost_jump(state, player, boost_jump_trick),
+        can_underwater_dash(state, player, underwater_dash_trick)
+    ])
+
+
+def underwater_movement(state: CollectionState, player: int, underwater_dash_trick: str) -> bool:
+    """Represents being able to get greater-than-usual horizontal movement while underwater."""
+    return condition_or([
+        state.has("Gravity Boost", player),
+        can_underwater_dash(state, player, underwater_dash_trick)
+    ])
+
+
 def has_enough_sky_temple_keys(state: CollectionState, player: int) -> bool:
     options = cast(MetroidPrime2Options, state.multiworld.worlds[player].options)
     needed_sky_temple_keys_count: int = options.sky_temple_keys_count.value
@@ -434,3 +537,51 @@ def has_oob_kit(state: CollectionState, player: int) -> bool:
         can_lay_bomb(state, player),
         state.has("Space Jump Boots", player),
     ])
+
+
+def can_defeat_alpha_blogg(state: CollectionState, player: int) -> bool:
+    """Alpha Blogg is a tough boss for a first-timer. It can also be very tough if your movement is restricted,
+    you have low (max) health, or you have low (max) ammo. It can be made easier by knowing its pattern,
+    having free-er movement, or having more damage potential."""
+    dark_ammo = sum([1 if has_dark_ammo(state, player, i) else 0 for i in [100, 150, 200, 250]])
+    charge_dark = can_use_charged_dark_beam(state, player)
+    has_power = can_use_power_beam(state, player)
+    charge_power = can_use_charged_power_beam(state, player)
+    has_supers = can_use_super_missile(state, player, 1)
+    missile_count = get_missile_count(state, player)
+    missile_score = math.floor(missile_count / 10)
+    double_jump = state.has("Space Jump Boots", player)
+    grav_boost = state.has("Gravity Boost", player)
+    ball_boost = can_use_boost_ball(state, player)
+    tanks = state.count('Energy Tank', player)
+    has_knowledge = state.has('Scan Visor', player)
+
+    survive_count = tanks
+    # suits don't provide damage reduction in this game, and there is no environmental damage,
+    # so they aren't a factor for this boss
+
+    move_count = 0
+    if grav_boost: move_count += 3
+    move_count += int(double_jump)
+    move_count += int(ball_boost)
+
+    damage_count = 0
+    damage_count += int(has_power)
+    if charge_power:
+        damage_count += 1
+        if has_supers:
+            damage_count += 1
+            damage_count += missile_score
+    if charge_dark:
+        damage_count += 2
+        damage_count += dark_ammo
+    damage_count += dark_ammo
+    damage_count += missile_score
+
+    threshold = 100
+    score = 0
+    if has_knowledge: score += 5
+    score += survive_count * 5
+    score += move_count * 10
+    score += damage_count * 3
+    return score >= threshold
