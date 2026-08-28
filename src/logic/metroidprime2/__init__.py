@@ -434,3 +434,99 @@ def has_oob_kit(state: CollectionState, player: int) -> bool:
         can_lay_bomb(state, player),
         state.has("Space Jump Boots", player),
     ])
+
+
+def quadraxis_combat_logic(state: CollectionState, player: int) -> bool:
+    """Quadraxis has very complicated logic due to being such a late game boss in the vanilla game and not having any safe zones.
+    Realistically one should be well over the requirements before one can even reach Quadraxis.
+    There can however always be edge cases and future settings could change how relevant this is.
+    Pickups change how the fight works a lot, but missile pickups seemed to not be guaranteed but energy pickups were plentiful."""
+
+    if not can_lay_bomb_or_pb(state, player): return False #Is simply not possible to beat Phase 3 without this
+    if not (has_dark_suit(state, player) or has_light_suit(state, player)): return False #Is its own check in case non suit logic gets added in the future
+    
+    skip_boost = has_trick_enabled(state, player, "Quadraxis Without Boost Ball")
+    skip_echo = has_trick_enabled(state, player, "Quadraxis Without Echo Visor")
+    skip_spider = has_trick_enabled(state, player, "Quadraxis Without Spider Ball")
+    if not skip_boost and not can_use_boost_ball(state, player): return False
+    if not skip_echo and not state.has("Echo Visor", player): return False
+    if not skip_spider and not can_use_spider_ball(state, player): return False
+
+    offence = 0
+    ammunition = 0
+    speed = 0
+    defence = 0
+    #Offence
+    if can_use_charged_power_beam(state, player): 
+        offence += 10
+        speed += 10
+    elif can_use_power_beam(state, player): offence += 1
+
+    if not can_use_light_beam(state, player): light_ammo = 0
+    elif has_light_ammo(state, player, 200): 
+        light_ammo = 4 #Around 100 is required if done optimally, so 250 is basically same as 200, and even 200 is very high but could be good for less experienced players
+        ammunition += 25
+
+    elif has_light_ammo(state, player, 150): 
+        light_ammo = 3
+        ammunition += 20
+
+    elif has_light_ammo(state, player, 100): 
+        light_ammo = 2
+        ammunition += 15
+    else: 
+        light_ammo = 1
+        ammunition += 10
+
+
+    light_beam = 0
+    if can_use_charged_light_beam(state, player): 
+        light_beam = 20
+        speed += 10
+        ammunition += 10
+    elif can_use_light_beam(state, player): 
+        light_beam = 20
+        ammunition += 10
+
+    offence += (light_ammo*light_beam)
+
+    missiles = get_missile_count(state, player)
+    if not state.has("Echo Visor", player): missiles = min(missiles, 150)
+    offence += math.floor(missiles / 10)
+    ammunition += math.floor(missiles / 10)
+    if can_use_super_missile(state, player): speed += math.floor(missiles / 15)
+
+    if ammunition < 25 and not (can_use_power_beam(state, player) or can_use_charged_power_beam(state, player)): #This checks whether there is enough ammo to beat the boss
+        offence = 0
+
+    #Defence
+    if condition_or([
+        can_use_charged_power_beam(state, player),
+        can_use_charged_dark_beam(state, player),
+        can_use_charged_light_beam(state, player),
+        can_use_charged_annihilator_beam(state, player)
+    ]): 
+        defence += 30
+
+    e_tanks = state.count("Energy Tank", player)
+    space_jump = state.has("Space Jump Boots", player)
+    dark_suit = has_dark_suit(state, player)
+    light_suit = has_light_suit(state, player)
+    boost = can_use_boost_ball(state, player)
+
+    defence += e_tanks*10
+    defence += int(boost)*5
+    defence += int(space_jump)*5
+    defence += int(light_suit)*2*e_tanks
+
+    #Tricks
+    if has_trick_enabled(state, player, "Quadraxis Screw Attack Centre Antennae"): speed += 10
+
+    samus = offence + defence + speed
+
+    if defence < 60: samus = 0 #This is to just set a minimum of at least 1 E-Tank with light suit and 2 with dark suit
+    if offence == 0: samus = 0 #To prevent situations where if one only has dark or annihilator beam or insufficient ammunition for Quadraxis to be in logic
+
+    quadraxis = 150
+
+    return samus >= quadraxis
